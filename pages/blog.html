@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Блог — ITКурсы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -16,11 +19,11 @@
         <p>Статьи, гайды и истории успеха из мира IT</p>
       </div>
     </div>
-    <section class="section-sm">
+    <section style="padding: 48px 0 100px;">
       <div class="container">
-        <div style="max-width:520px; margin-bottom:40px;">
-          <div class="search-box">
-            <span>🔍</span>
+        <div style="max-width:520px; margin-bottom:36px;">
+          <div class="search-box" style="margin:0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <input type="text" id="blogSearch" placeholder="Поиск статей...">
           </div>
         </div>
@@ -34,7 +37,7 @@
         </div>
         <div class="blog-grid" id="blogGrid"></div>
         <div id="blogEmpty" class="empty-state" style="display:none;">
-          <div class="empty-state-icon">📄</div>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="margin-bottom:16px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           <h3>Ничего не найдено</h3>
           <p>Попробуйте другой запрос</p>
         </div>
@@ -63,17 +66,28 @@
           empty.style.display = "none";
           grid.innerHTML = posts.map(post => `
             <div class="blog-card">
-              <div class="blog-card-img">${post.icon}</div>
-              <div class="blog-card-body">
-                <div class="blog-category">${post.category}</div>
-                <h3 class="blog-title"><a href="#">${post.title}</a></h3>
-                <p class="blog-excerpt">${post.excerpt}</p>
-                <div class="blog-meta">
-                  <span>👤 ${post.author}</span>
-                  <span>📅 ${post.date}</span>
-                  <span>⏱ ${post.readTime}</span>
+              <div class="blog-card__img">
+                ${post.icon ? post.icon.replace(/width="52"/g, 'width="40"').replace(/height="52"/g, 'height="40"') : ''}
+              </div>
+              <div class="blog-card__body">
+                <div class="blog-card__category">${post.category}</div>
+                <h3 class="blog-card__title"><a href="#">${post.title}</a></h3>
+                <p class="blog-card__excerpt">${post.excerpt}</p>
+                <div class="blog-card__meta">
+                  <span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    ${post.author}
+                  </span>
+                  <span>${post.date}</span>
+                  <span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    ${post.readTime}
+                  </span>
                 </div>
-                <a href="#" class="btn btn-ghost btn-sm" style="margin-top:12px;" onclick="showToast('Статья открыта!','info'); return false;">Читать →</a>
+                <a href="#" class="btn btn-ghost btn-sm" style="margin-top:14px;" onclick="showToast('Статья открыта!','info'); return false;">
+                  Читать
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
               </div>
             </div>
           `).join("");

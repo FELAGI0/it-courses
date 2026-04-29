@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Тарифы — ITКурсы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -19,34 +22,37 @@
     <section class="section">
       <div class="container">
         <div style="text-align:center; margin-bottom:48px;">
-          <div style="display:inline-flex; background:var(--bg-secondary); border-radius:100px; padding:4px; gap:4px;">
+          <div style="display:inline-flex; background:var(--bg-tertiary); border-radius:100px; padding:5px; gap:4px;">
             <button class="filter-btn active" id="periodMonth" onclick="setPeriod('month')">Ежемесячно</button>
-            <button class="filter-btn" id="periodYear" onclick="setPeriod('year')">Ежегодно <span style="color:var(--success); font-size:0.78rem; font-weight:700;">-30%</span></button>
+            <button class="filter-btn" id="periodYear" onclick="setPeriod('year')">Ежегодно <span style="color:var(--success); font-size:0.78rem; font-weight:700;">−30%</span></button>
           </div>
         </div>
         <div class="pricing-grid" id="pricingGrid"></div>
-        <div style="margin-top:64px;">
+        <div style="margin-top:80px;">
           <div class="section-header">
             <h2 class="section-title">Сравнение тарифов</h2>
           </div>
           <div style="overflow-x:auto;">
-            <table style="width:100%; border-collapse:collapse; background:var(--bg-card); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow);">
+            <table style="width:100%; border-collapse:collapse; background:var(--bg-card); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md);">
               <thead>
                 <tr style="background:var(--bg-secondary);">
-                  <th style="padding:16px 20px; text-align:left; font-size:0.9rem;">Функция</th>
-                  <th style="padding:16px 20px; text-align:center; font-size:0.9rem;">Бесплатный</th>
-                  <th style="padding:16px 20px; text-align:center; font-size:0.9rem; color:var(--primary);">Pro</th>
-                  <th style="padding:16px 20px; text-align:center; font-size:0.9rem; color:var(--secondary);">Business</th>
+                  <th style="padding:16px 20px; text-align:left; font-size:0.9rem; font-weight:600;">Функция</th>
+                  <th style="padding:16px 20px; text-align:center; font-size:0.9rem; font-weight:600;">Бесплатный</th>
+                  <th style="padding:16px 20px; text-align:center; font-size:0.9rem; font-weight:600; color:var(--primary);">Pro</th>
+                  <th style="padding:16px 20px; text-align:center; font-size:0.9rem; font-weight:600; color:#8b5cf6;">Business</th>
                 </tr>
               </thead>
               <tbody id="comparisonTable"></tbody>
             </table>
           </div>
         </div>
-        <div style="text-align:center; margin-top:60px; padding:40px; background:linear-gradient(135deg,var(--primary),var(--secondary)); border-radius:var(--radius-xl); color:#fff;">
-          <h3 style="font-size:1.6rem; font-weight:900; margin-bottom:10px;">30-дневная гарантия возврата</h3>
-          <p style="opacity:0.85; margin-bottom:24px;">Не понравилось — вернём деньги без вопросов</p>
-          <a href="register.html" class="btn btn-lg" style="background:#fff; color:var(--primary);">Начать бесплатно</a>
+        <div class="cta-block" style="margin-top:60px;">
+          <div class="cta-block__bg"></div>
+          <h3 class="cta-block__title">30-дневная гарантия возврата</h3>
+          <p class="cta-block__desc" style="color:rgba(255,255,255,0.85);">Не понравилось — вернём деньги без вопросов</p>
+          <div class="cta-block__actions">
+            <a href="register.html" class="btn btn-white btn-lg">Начать бесплатно</a>
+          </div>
         </div>
       </div>
     </section>
@@ -72,17 +78,20 @@
         const price = currentPeriod === "year" && plan.price > 0 ? Math.round(plan.price * 0.7) : plan.price;
         return `
           <div class="pricing-card ${plan.featured ? "featured" : ""}">
-            ${plan.featured ? '<div class="pricing-badge">🔥 Популярный</div>' : ""}
-            <div class="pricing-name" style="color:${plan.color};">${plan.name}</div>
-            <div class="pricing-price">
-              <span class="pricing-amount">${price === 0 ? "0 ₽" : new Intl.NumberFormat("ru-RU").format(price) + " ₽"}</span>
-              <span class="pricing-period"> / ${currentPeriod === "year" ? "год" : plan.period}</span>
+            ${plan.featured ? '<div class="pricing-badge">Популярный</div>' : ""}
+            <div class="pricing-card__name" style="color:${plan.color};">${plan.name}</div>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount">${price === 0 ? "0 ₽" : new Intl.NumberFormat("ru-RU").format(price) + " ₽"}</span>
+              <span class="pricing-card__period"> / ${currentPeriod === "year" ? "год" : plan.period}</span>
             </div>
-            <div class="pricing-desc">${plan.description}</div>
-            <div class="pricing-features">
+            <div class="pricing-card__desc">${plan.description}</div>
+            <div class="pricing-card__features">
               ${plan.features.map(f => `
-                <div class="pricing-feature ${f.included ? "included" : "excluded"}">
-                  <span class="pricing-feature-icon">${f.included ? "✅" : "❌"}</span>
+                <div class="pricing-card__feature ${f.included ? "included" : "excluded"}">
+                  ${f.included
+                    ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+                    : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+                  }
                   ${f.text}
                 </div>
               `).join("")}
@@ -99,8 +108,15 @@
         const allFeatures = PRICING_PLANS[2].features.map(f => f.text);
         tbody.innerHTML = allFeatures.map((feature, i) => `
           <tr style="border-bottom:1px solid var(--border);">
-            <td style="padding:14px 20px; font-size:0.9rem;">${feature}</td>
-            ${PRICING_PLANS.map(plan => `<td style="padding:14px 20px; text-align:center; font-size:1rem;">${plan.features[i]?.included ? "✅" : "—"}</td>`).join("")}
+            <td style="padding:14px 20px; font-size:0.9rem; color:var(--text-secondary);">${feature}</td>
+            ${PRICING_PLANS.map(plan => `
+              <td style="padding:14px 20px; text-align:center;">
+                ${plan.features[i]?.included
+                  ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+                  : '<span style="color:var(--text-muted);">—</span>'
+                }
+              </td>
+            `).join("")}
           </tr>
         `).join("");
       }

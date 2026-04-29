@@ -1,3 +1,32 @@
+// ============================================
+// SVG ICONS FOR DATA (inline, used in cards)
+// ============================================
+const S = {
+  python: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#3776AB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7.58 2 4 3.79 4 6s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4z"/><path d="M4 12c0 2.21 3.58 4 8 4s8-1.79 8-4"/><path d="M4 18c0 2.21 3.58 4 8 4s8-1.79 8-4"/><line x1="12" y1="2" x2="12" y2="22"/></svg>`,
+  
+  js: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#F7DF1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 16v-4a2 2 0 0 1 4 0v4"/><line x1="8" y1="14" x2="12" y2="14"/><path d="M16 8v8"/></svg>`,
+  
+  figma: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><path d="M4 20a4 4 0 0 1 4-4h4v4a4 4 0 0 1-8 0z"/><path d="M12 8h4a4 4 0 0 1 0 8h-4z"/></svg>`,
+  
+  ml: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#667EEA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 21h8"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+  
+  flutter: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#54C5F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 16l5-5 5 5"/><path d="M7 8l5 5 5-5"/></svg>`,
+  
+  docker: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2496ED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4"/><rect x="6" y="6" width="4" height="4"/><rect x="14" y="6" width="4" height="4"/><rect x="6" y="14" width="4" height="4"/><rect x="14" y="14" width="4" height="4"/></svg>`,
+  
+  security: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  
+  sql: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#336791" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+  
+  react: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#61DAFB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="8" ry="3" transform="rotate(0 12 12)"/><ellipse cx="12" cy="12" rx="8" ry="3" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="8" ry="3" transform="rotate(120 12 12)"/></svg>`,
+  
+  graphic: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  
+  pandas: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#E84393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>`,
+  
+  aws: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#FF9900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
+};
+
 const COURSES = [
   {
     id: 1,
@@ -15,7 +44,7 @@ const COURSES = [
     duration: "42 часа",
     lessons: 156,
     level: "Начинающий",
-    icon: "🐍",
+    icon: S.python,
     color: "#3776AB",
     tags: ["Python", "ООП", "Алгоритмы"],
     featured: true,
@@ -42,7 +71,7 @@ const COURSES = [
     duration: "68 часов",
     lessons: 240,
     level: "Средний",
-    icon: "⚡",
+    icon: S.js,
     color: "#F7DF1E",
     tags: ["JavaScript", "Node.js", "API"],
     featured: true,
@@ -69,7 +98,7 @@ const COURSES = [
     duration: "38 часов",
     lessons: 128,
     level: "Начинающий",
-    icon: "🎨",
+    icon: S.figma,
     color: "#FF6B6B",
     tags: ["Figma", "UX", "Прототипирование"],
     featured: true,
@@ -96,7 +125,7 @@ const COURSES = [
     duration: "55 часов",
     lessons: 189,
     level: "Продвинутый",
-    icon: "🤖",
+    icon: S.ml,
     color: "#667EEA",
     tags: ["ML", "Python", "TensorFlow"],
     featured: false,
@@ -123,7 +152,7 @@ const COURSES = [
     duration: "46 часов",
     lessons: 165,
     level: "Средний",
-    icon: "📱",
+    icon: S.flutter,
     color: "#54C5F8",
     tags: ["Flutter", "Dart", "Mobile"],
     featured: false,
@@ -150,7 +179,7 @@ const COURSES = [
     duration: "51 час",
     lessons: 178,
     level: "Продвинутый",
-    icon: "🐳",
+    icon: S.docker,
     color: "#2496ED",
     tags: ["Docker", "K8s", "CI/CD"],
     featured: false,
@@ -177,7 +206,7 @@ const COURSES = [
     duration: "60 часов",
     lessons: 210,
     level: "Продвинутый",
-    icon: "🔐",
+    icon: S.security,
     color: "#1A1A2E",
     tags: ["Security", "Kali", "Pentest"],
     featured: false,
@@ -204,7 +233,7 @@ const COURSES = [
     duration: "32 часа",
     lessons: 112,
     level: "Начинающий",
-    icon: "🗄️",
+    icon: S.sql,
     color: "#336791",
     tags: ["SQL", "PostgreSQL", "БД"],
     featured: false,
@@ -231,7 +260,7 @@ const COURSES = [
     duration: "49 часов",
     lessons: 172,
     level: "Средний",
-    icon: "⚛️",
+    icon: S.react,
     color: "#61DAFB",
     tags: ["React", "Redux", "TypeScript"],
     featured: false,
@@ -258,7 +287,7 @@ const COURSES = [
     duration: "35 часов",
     lessons: 124,
     level: "Начинающий",
-    icon: "✏️",
+    icon: S.graphic,
     color: "#FF6B35",
     tags: ["Photoshop", "Illustrator", "Брендинг"],
     featured: false,
@@ -285,7 +314,7 @@ const COURSES = [
     duration: "38 часов",
     lessons: 134,
     level: "Средний",
-    icon: "📊",
+    icon: S.pandas,
     color: "#E84393",
     tags: ["Pandas", "NumPy", "Визуализация"],
     featured: false,
@@ -312,7 +341,7 @@ const COURSES = [
     duration: "65 часов",
     lessons: 228,
     level: "Продвинутый",
-    icon: "☁️",
+    icon: S.aws,
     color: "#FF9900",
     tags: ["AWS", "Cloud", "Архитектура"],
     featured: false,
@@ -325,14 +354,34 @@ const COURSES = [
   }
 ];
 
+// SVG icons for categories
+const CAT_ICONS = {
+  programming: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  design: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>`,
+  data: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  mobile: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  devops: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  security: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+};
+
 const CATEGORIES = [
-  { id: "programming", name: "Программирование", icon: "💻", count: 48, color: "#6366f1" },
-  { id: "design", name: "Дизайн", icon: "🎨", count: 32, color: "#ec4899" },
-  { id: "data", name: "Data Science", icon: "📊", count: 27, color: "#14b8a6" },
-  { id: "mobile", name: "Мобильная разработка", icon: "📱", count: 21, color: "#f59e0b" },
-  { id: "devops", name: "DevOps", icon: "⚙️", count: 19, color: "#3b82f6" },
-  { id: "security", name: "Кибербезопасность", icon: "🔐", count: 15, color: "#ef4444" }
+  { id: "programming", name: "Программирование", icon: CAT_ICONS.programming, count: 48, color: "#6366f1" },
+  { id: "design", name: "Дизайн", icon: CAT_ICONS.design, count: 32, color: "#ec4899" },
+  { id: "data", name: "Data Science", icon: CAT_ICONS.data, count: 27, color: "#14b8a6" },
+  { id: "mobile", name: "Мобильная разработка", icon: CAT_ICONS.mobile, count: 21, color: "#f59e0b" },
+  { id: "devops", name: "DevOps", icon: CAT_ICONS.devops, count: 19, color: "#3b82f6" },
+  { id: "security", name: "Кибербезопасность", icon: CAT_ICONS.security, count: 15, color: "#ef4444" }
 ];
+
+// SVG for teacher avatars
+const TEACHER_AVATARS = {
+  dev_male: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  dev_female: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  design_female: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  scientist: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  devops_male: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  security_male: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+};
 
 const TEACHERS = [
   {
@@ -341,7 +390,7 @@ const TEACHERS = [
     title: "Senior Python Developer",
     company: "Yandex",
     bio: "10 лет опыта в Python разработке. Ранее работал в Яндексе и Сбербанке. Автор 3 open-source библиотек.",
-    avatar: "👨‍💻",
+    avatar: TEACHER_AVATARS.dev_male,
     rating: 4.9,
     students: 28450,
     courses: 4,
@@ -354,7 +403,7 @@ const TEACHERS = [
     title: "Frontend Tech Lead",
     company: "VK",
     bio: "Tech Lead во ВКонтакте. Специализируется на React экосистеме и производительности веб-приложений.",
-    avatar: "👩‍💻",
+    avatar: TEACHER_AVATARS.dev_female,
     rating: 4.9,
     students: 35780,
     courses: 3,
@@ -367,7 +416,7 @@ const TEACHERS = [
     title: "Lead Product Designer",
     company: "Tinkoff",
     bio: "Product Designer в Тинькофф. Создала дизайн-систему для 50+ продуктов. Спикер конференций по UX.",
-    avatar: "👩‍🎨",
+    avatar: TEACHER_AVATARS.design_female,
     rating: 4.8,
     students: 19120,
     courses: 3,
@@ -380,7 +429,7 @@ const TEACHERS = [
     title: "Data Science Lead",
     company: "Сбер",
     bio: "Руководит командой Data Science в Сбербанке. PhD по математике. Публикации в международных журналах.",
-    avatar: "👨‍🔬",
+    avatar: TEACHER_AVATARS.scientist,
     rating: 4.9,
     students: 22890,
     courses: 4,
@@ -393,7 +442,7 @@ const TEACHERS = [
     title: "DevOps Architect",
     company: "Mail.ru Group",
     bio: "Архитектор DevOps в Mail.ru. Построил инфраструктуру для сервисов с нагрузкой 100M+ запросов в сутки.",
-    avatar: "👨‍🚀",
+    avatar: TEACHER_AVATARS.devops_male,
     rating: 4.8,
     students: 15340,
     courses: 3,
@@ -406,7 +455,7 @@ const TEACHERS = [
     title: "Security Researcher",
     company: "Kaspersky Lab",
     bio: "Исследователь безопасности в Kaspersky Lab. Обнаружил 20+ критических уязвимостей в популярных продуктах.",
-    avatar: "👨‍🔒",
+    avatar: TEACHER_AVATARS.security_male,
     rating: 4.9,
     students: 11230,
     courses: 2,
@@ -414,6 +463,8 @@ const TEACHERS = [
     skills: ["Penetration Testing", "Reverse Engineering", "Malware Analysis", "CTF"]
   }
 ];
+
+// ... BLOG_POSTS, FAQ_DATA, PRICING_PLANS без изменений ...
 
 const BLOG_POSTS = [
   {
@@ -425,7 +476,7 @@ const BLOG_POSTS = [
     author: "Алексей Петров",
     date: "15 декабря 2024",
     readTime: "8 мин",
-    icon: "🐍",
+    icon: S.python,
     featured: true
   },
   {
@@ -437,7 +488,7 @@ const BLOG_POSTS = [
     author: "Мария Козлова",
     date: "10 декабря 2024",
     readTime: "12 мин",
-    icon: "⚡",
+    icon: S.react,
     featured: true
   },
   {
@@ -449,7 +500,7 @@ const BLOG_POSTS = [
     author: "Игорь Новиков",
     date: "5 декабря 2024",
     readTime: "10 мин",
-    icon: "⚙️",
+    icon: S.docker,
     featured: false
   },
   {
@@ -461,7 +512,7 @@ const BLOG_POSTS = [
     author: "Дмитрий Сидоров",
     date: "1 декабря 2024",
     readTime: "15 мин",
-    icon: "💼",
+    icon: S.ml,
     featured: false
   },
   {
@@ -473,7 +524,7 @@ const BLOG_POSTS = [
     author: "Дмитрий Сидоров",
     date: "25 ноября 2024",
     readTime: "11 мин",
-    icon: "📊",
+    icon: S.pandas,
     featured: false
   },
   {
@@ -485,7 +536,7 @@ const BLOG_POSTS = [
     author: "Светлана Иванова",
     date: "20 ноября 2024",
     readTime: "9 мин",
-    icon: "🎨",
+    icon: S.figma,
     featured: false
   }
 ];
@@ -593,21 +644,21 @@ const TESTIMONIALS = [
     name: "Сергей Морозов",
     role: "Junior Python Developer в Сбере",
     text: "За 4 месяца обучения на платформе я получил работу мечты! Курс Python был настолько практичным, что уже на собеседовании я чувствовал себя уверенно.",
-    avatar: "😊",
+    avatar: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/></svg>`,
     rating: 5
   },
   {
     name: "Анна Белова",
     role: "UI/UX Designer в стартапе",
     text: "Курс по UI/UX дизайну полностью изменил мою карьеру. Перешла из маркетинга в дизайн и теперь зарабатываю в 2 раза больше. Рекомендую!",
-    avatar: "😍",
+    avatar: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/></svg>`,
     rating: 5
   },
   {
     name: "Михаил Тарасов",
     role: "Data Analyst в ВТБ",
     text: "Отличные курсы по Data Science! Преподаватели объясняют сложные вещи простым языком. Портфолио из учебных проектов помогло получить оффер.",
-    avatar: "🤩",
+    avatar: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1"/></svg>`,
     rating: 5
   }
 ];

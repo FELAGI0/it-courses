@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Категории — ITКурсы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -18,8 +21,8 @@
     </div>
     <section class="section">
       <div class="container">
-        <div class="categories-grid" id="allCategories" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"></div>
-        <div class="section" style="padding-top:60px;">
+        <div class="categories-grid" id="allCategories" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));"></div>
+        <div style="padding-top:80px;">
           <div class="section-header">
             <h2 class="section-title">Все направления подробнее</h2>
           </div>
@@ -37,11 +40,11 @@
     function pageInit() {
       const grid = document.getElementById("allCategories");
       grid.innerHTML = CATEGORIES.map(cat => `
-        <a href="catalog.html?category=${cat.id}" class="category-card" style="border-color:${cat.color}40; padding:36px 28px;">
-          <div class="category-icon" style="font-size:3rem; margin-bottom:16px;">${cat.icon}</div>
-          <div class="category-name" style="font-size:1.15rem;">${cat.name}</div>
-          <div class="category-count" style="margin-top:8px;">${cat.count} курсов</div>
-          <div style="margin-top:12px; width:40px; height:3px; background:${cat.color}; border-radius:2px; margin-left:auto; margin-right:auto;"></div>
+        <a href="catalog.html?category=${cat.id}" class="category-card" style="--cat-color:${cat.color}; padding:40px 28px;">
+          <div class="category-icon">${cat.icon}</div>
+          <div class="category-name">${cat.name}</div>
+          <div class="category-count">${cat.count} курсов</div>
+          <div style="margin-top:14px; width:48px; height:3px; background:${cat.color}; border-radius:2px; margin-left:auto; margin-right:auto;"></div>
         </a>
       `).join("");
 
@@ -49,14 +52,19 @@
       details.innerHTML = CATEGORIES.map(cat => {
         const courses = COURSES.filter(c => c.category === cat.id).slice(0, 3);
         return `
-          <div style="margin-bottom:48px; padding:32px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl);">
-            <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
-              <span style="font-size:2rem;">${cat.icon}</span>
+          <div style="margin-bottom:48px; padding:36px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-xl);">
+            <div style="display:flex; align-items:center; gap:14px; margin-bottom:28px;">
+              <div style="width:48px; height:48px; border-radius:var(--radius-md); background:var(--primary-bg); display:flex; align-items:center; justify-content:center; color:${cat.color};">
+                ${cat.icon}
+              </div>
               <div>
                 <h3 style="font-size:1.3rem; font-weight:800;">${cat.name}</h3>
                 <span style="color:var(--text-muted); font-size:0.88rem;">${cat.count} курсов доступно</span>
               </div>
-              <a href="catalog.html?category=${cat.id}" class="btn btn-outline btn-sm" style="margin-left:auto;">Все курсы →</a>
+              <a href="catalog.html?category=${cat.id}" class="btn btn-outline btn-sm" style="margin-left:auto;">
+                Все курсы
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
             <div class="courses-grid">
               ${courses.map(c => renderCourseCard(c)).join("")}
@@ -66,6 +74,7 @@
       }).join("");
 
       initCartButtons();
+      initScrollAnimations();
     }
   </script>
 </body>

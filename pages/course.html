@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Курс — ITКурсы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -24,7 +27,7 @@
       const container = document.getElementById("courseContent");
 
       if (!course) {
-        container.innerHTML = `<div class="container section"><div class="empty-state"><div class="empty-state-icon">😕</div><h3>Курс не найден</h3><p>Курс с таким ID не существует</p><a href="catalog.html" class="btn btn-primary">К каталогу</a></div></div>`;
+        container.innerHTML = `<div class="container" style="padding:120px 24px;"><div class="empty-state"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="margin-bottom:20px;"><circle cx="12" cy="12" r="10"/><path d="m9 9 6 6"/><path d="m15 9-6 6"/></svg><h3>Курс не найден</h3><p>Курс с таким ID не существует</p><a href="catalog.html" class="btn btn-primary">К каталогу</a></div></div>`;
         return;
       }
 
@@ -35,7 +38,7 @@
       const savingsPct = course.oldPrice ? Math.round((savings / course.oldPrice) * 100) : 0;
 
       container.innerHTML = `
-        <div class="page-hero" style="background: linear-gradient(135deg, ${course.color}15, ${course.color}05)">
+        <div class="page-hero" style="background: linear-gradient(135deg, ${course.color}12, ${course.color}04)">
           <div class="container">
             <div class="breadcrumb">
               <a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>
@@ -45,52 +48,55 @@
             <div style="display:flex; justify-content:space-between; gap:32px; flex-wrap:wrap;">
               <div style="max-width:680px; flex:1;">
                 <span class="section-badge">${course.categoryName}</span>
-                <h1 style="font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900; margin:12px 0;">${course.title}</h1>
-                <p style="font-size:1.05rem; color:var(--text-muted); margin-bottom:20px;">${course.fullDescription}</p>
+                <h1 style="font-size:clamp(1.8rem,4vw,2.6rem); font-weight:900; margin:16px 0; letter-spacing:-0.02em;">${course.title}</h1>
+                <p style="font-size:1.05rem; color:var(--text-muted); margin-bottom:20px; line-height:1.7;">${course.fullDescription}</p>
                 <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
                   ${renderStars(course.rating)}
                   <span style="color:var(--text-muted); font-size:0.88rem;">(${course.students.toLocaleString("ru-RU")} студентов)</span>
                   <span class="badge badge-primary">${course.level}</span>
                 </div>
                 <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:0.88rem; color:var(--text-muted);">
-                  <span>👨‍🏫 ${course.instructor}</span>
-                  <span>📖 ${course.lessons} уроков</span>
-                  <span>⏱ ${course.duration}</span>
+                  <span>${ICONS.teacher} ${course.instructor}</span>
+                  <span>${ICONS.book} ${course.lessons} уроков</span>
+                  <span>${ICONS.clock} ${course.duration}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <section class="section-sm">
+        <section style="padding: 56px 0;">
           <div class="container">
             <div class="course-layout">
               <div class="course-main">
                 <div class="info-card">
                   <h3>Чему вы научитесь</h3>
-                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div class="feature-item"><span class="feature-item-icon">✅</span> Понимать основные концепции ${course.tags[0]}</div>
-                    <div class="feature-item"><span class="feature-item-icon">✅</span> Создавать реальные проекты</div>
-                    <div class="feature-item"><span class="feature-item-icon">✅</span> Работать с ${course.tags[1] || course.tags[0]}</div>
-                    <div class="feature-item"><span class="feature-item-icon">✅</span> Применять лучшие практики</div>
-                    <div class="feature-item"><span class="feature-item-icon">✅</span> Проходить технические собеседования</div>
-                    <div class="feature-item"><span class="feature-item-icon">✅</span> Строить карьеру в IT</div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div class="feature-item"><span style="color:var(--success); flex-shrink:0;">${ICONS.check}</span> Понимать основные концепции ${course.tags[0]}</div>
+                    <div class="feature-item"><span style="color:var(--success); flex-shrink:0;">${ICONS.check}</span> Создавать реальные проекты</div>
+                    <div class="feature-item"><span style="color:var(--success); flex-shrink:0;">${ICONS.check}</span> Работать с ${course.tags[1] || course.tags[0]}</div>
+                    <div class="feature-item"><span style="color:var(--success); flex-shrink:0;">${ICONS.check}</span> Применять лучшие практики</div>
+                    <div class="feature-item"><span style="color:var(--success); flex-shrink:0;">${ICONS.check}</span> Проходить технические собеседования</div>
+                    <div class="feature-item"><span style="color:var(--success); flex-shrink:0;">${ICONS.check}</span> Строить карьеру в IT</div>
                   </div>
                 </div>
 
                 <div class="info-card">
                   <h3>Программа курса</h3>
-                  <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">${course.curriculum.length} разделов • ${course.lessons} уроков • ${course.duration}</p>
+                  <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">${course.curriculum.length} разделов &middot; ${course.lessons} уроков &middot; ${course.duration}</p>
                   ${course.curriculum.map((section, idx) => `
-                    <div class="curriculum-section">
-                      <div class="curriculum-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
-                        <span>📂 ${section.section}</span>
-                        <span style="font-size:0.85rem; color:var(--text-muted);">${section.lessons.length} урока ▼</span>
+                    <div class="curriculum-section" style="margin-bottom:12px;">
+                      <div class="curriculum-header" style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; background:var(--bg); border-radius:var(--radius-sm); cursor:pointer; font-weight:600; font-size:0.95rem; border:1px solid var(--border); transition:all var(--transition-fast);" onclick="const n=this.nextElementSibling; n.style.display=n.style.display==='none'?'block':'none'; this.querySelector('svg').style.transform=n.style.display==='none'?'rotate(0deg)':'rotate(180deg)';">
+                        <span>${section.section}</span>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                          <span style="font-size:0.82rem; color:var(--text-muted);">${section.lessons.length} уроков</span>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition:transform var(--transition-base); ${idx===0?'transform:rotate(180deg)':''}"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
                       </div>
-                      <div class="curriculum-lessons" ${idx > 0 ? 'style="display:none"' : ''}>
+                      <div style="padding: 0 20px; ${idx > 0 ? 'display:none;' : ''}">
                         ${section.lessons.map((lesson, li) => `
-                          <div class="curriculum-lesson">
-                            <span>▶️</span>
+                          <div style="display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border-light); font-size:0.88rem; color:var(--text-muted);">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                             <span style="flex:1;">${lesson}</span>
                             ${li === 0 ? '<span style="color:var(--success); font-size:0.78rem; font-weight:600;">Бесплатно</span>' : ''}
                           </div>
@@ -104,7 +110,7 @@
                 <div class="info-card">
                   <h3>Ваш преподаватель</h3>
                   <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-                    <div style="width:72px; height:72px; border-radius:50%; font-size:2.2rem; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--primary)20, var(--secondary)20); flex-shrink:0;">${teacher.avatar}</div>
+                    <div style="width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--primary-bg), rgba(139,92,246,0.1)); flex-shrink:0; border:2px solid var(--primary-bg);">${teacher.avatar}</div>
                     <div style="flex:1;">
                       <div style="font-size:1.1rem; font-weight:700; margin-bottom:4px;">${teacher.name}</div>
                       <div style="color:var(--primary); font-size:0.88rem; margin-bottom:8px;">${teacher.title} @ ${teacher.company}</div>
@@ -116,33 +122,51 @@
 
                 <div class="info-card">
                   <h3>Требования</h3>
-                  <div class="feature-list">
-                    <div class="feature-item"><span class="feature-item-icon">📌</span> Базовое владение компьютером</div>
-                    <div class="feature-item"><span class="feature-item-icon">📌</span> Уровень: ${course.level}</div>
-                    <div class="feature-item"><span class="feature-item-icon">📌</span> Желание учиться и практиковаться</div>
+                  <div style="display:flex; flex-direction:column; gap:10px;">
+                    <div style="display:flex; align-items:center; gap:10px; font-size:0.92rem; color:var(--text-muted);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 16v-4"/><path d="m12 8h.01"/></svg>
+                      Базовое владение компьютером
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; font-size:0.92rem; color:var(--text-muted);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 16v-4"/><path d="m12 8h.01"/></svg>
+                      Уровень: ${course.level}
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; font-size:0.92rem; color:var(--text-muted);">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 16v-4"/><path d="m12 8h.01"/></svg>
+                      Желание учиться и практиковаться
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="course-sidebar">
-                <div class="course-preview-card">
-                  <div class="course-preview-img" style="background: linear-gradient(135deg, ${course.color}25, ${course.color}45)">
+                <div class="course-preview-card" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-xl);">
+                  <div style="height:200px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, ${course.color}20, ${course.color}35);">
                     ${course.icon}
                   </div>
-                  <div class="course-preview-body">
-                    <div class="course-price-big">${formatPrice(course.price)}</div>
-                    ${course.oldPrice ? `<div class="course-old-price">${formatPrice(course.oldPrice)} <span class="badge badge-danger">-${savingsPct}%</span></div>` : ""}
+                  <div style="padding:28px;">
+                    <div style="font-size:2rem; font-weight:900; color:var(--text); margin-bottom:4px;">${formatPrice(course.price)}</div>
+                    ${course.oldPrice ? `<div style="font-size:1rem; color:var(--text-muted); text-decoration:line-through; margin-bottom:20px;">${formatPrice(course.oldPrice)} <span class="badge badge-danger">-${savingsPct}%</span></div>` : '<div style="margin-bottom:20px;"></div>'}
                     <button class="btn btn-primary w-100 btn-lg mb-2" id="courseCartBtn" data-id="${course.id}">
-                      ${inCart ? "✓ Уже в корзине" : "🛒 В корзину"}
+                      ${inCart ? `${ICONS.check} Уже в корзине` : `${ICONS.cart} В корзину`}
                     </button>
                     ${inCart ? `<a href="cart.html" class="btn btn-outline w-100">Перейти в корзину</a>` : ""}
-                    ${savings > 0 ? `<div class="summary-savings mt-2">Вы экономите ${formatPrice(savings)}</div>` : ""}
-                    <div class="course-includes">
-                      <div class="course-include-item"><span>📖</span>${course.lessons} уроков</div>
-                      <div class="course-include-item"><span>⏱</span>${course.duration} материалов</div>
-                      <div class="course-include-item"><span>📱</span>Доступ с любого устройства</div>
-                      <div class="course-include-item"><span>♾️</span>Пожизненный доступ</div>
-                      <div class="course-include-item"><span>🏆</span>Сертификат об окончании</div>
+                    ${savings > 0 ? `<div class="summary-savings mt-2" style="background:var(--success-bg); color:var(--success); padding:12px 16px; border-radius:var(--radius-sm); font-size:0.88rem; font-weight:600;">Вы экономите ${formatPrice(savings)}</div>` : ""}
+                    <div style="display:flex; flex-direction:column; gap:12px; margin:24px 0;">
+                      <div style="display:flex; align-items:center; gap:10px; font-size:0.88rem; color:var(--text-muted);">${ICONS.book} ${course.lessons} уроков</div>
+                      <div style="display:flex; align-items:center; gap:10px; font-size:0.88rem; color:var(--text-muted);">${ICONS.clock} ${course.duration}</div>
+                      <div style="display:flex; align-items:center; gap:10px; font-size:0.88rem; color:var(--text-muted);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                        Доступ с любого устройства
+                      </div>
+                      <div style="display:flex; align-items:center; gap:10px; font-size:0.88rem; color:var(--text-muted);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                        Пожизненный доступ
+                      </div>
+                      <div style="display:flex; align-items:center; gap:10px; font-size:0.88rem; color:var(--text-muted);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+                        Сертификат об окончании
+                      </div>
                     </div>
                     <div style="text-align:center; font-size:0.82rem; color:var(--text-muted);">30-дневная гарантия возврата</div>
                   </div>
@@ -151,7 +175,7 @@
                 <div class="info-card mt-3">
                   <h3>Теги</h3>
                   <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                    ${course.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+                    ${course.tags.map(t => `<span style="background:var(--bg-tertiary); color:var(--text-muted); padding:6px 14px; border-radius:var(--radius-full); font-size:0.82rem; border:1px solid var(--border);">${t}</span>`).join("")}
                   </div>
                 </div>
               </div>
@@ -164,7 +188,7 @@
         const cid = parseInt(this.dataset.id);
         const result = Storage.cart.addToCart(cid);
         if (result.success) {
-          this.textContent = "✓ Уже в корзине";
+          this.innerHTML = `${ICONS.check} Уже в корзине`;
           this.classList.remove("btn-primary");
           this.classList.add("btn-success");
           showToast(result.message, "success");

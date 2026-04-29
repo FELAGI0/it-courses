@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ITКурсы — Онлайн образование нового поколения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -11,28 +14,89 @@
 
   <main>
     <section class="hero">
-      <div class="container">
-        <div class="hero-content">
+      <div class="hero-bg-decor"></div>
+      <div class="hero-glow hero-glow--top"></div>
+      <div class="hero-glow hero-glow--bottom"></div>
+      <div class="container hero-grid">
+        <div class="hero-left">
           <div class="hero-badge">
             <span class="hero-badge-dot"></span>
-            Более 150 000 студентов уже учатся
+            Более 150 000 студентов
           </div>
-          <h1>
-            Освойте IT профессию<br>
-            <span class="hero-gradient-text">онлайн с нуля</span>
+
+          <h1 class="hero-title">
+            Освойте IT профессию
+            <span class="hero-title-accent">с нуля</span>
           </h1>
+
           <p class="hero-desc">
-            Практические курсы от топовых специалистов отрасли. Реальные проекты, поддержка преподавателей и сертификаты, которые ценят работодатели.
+            Практические курсы с реальными проектами и поддержкой менторов.
+            Получите навыки, которые ценятся на рынке.
           </p>
-          <div class="hero-btns">
-            <a href="pages/catalog.html" class="btn btn-primary btn-lg">🚀 Начать обучение</a>
-            <a href="pages/pricing.html" class="btn btn-outline btn-lg">Смотреть тарифы</a>
+
+          <div class="hero-buttons">
+            <a href="pages/catalog.html" class="btn btn-primary btn-lg">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              Начать обучение
+            </a>
+            <a href="pages/pricing.html" class="btn btn-outline btn-lg">
+              Смотреть тарифы
+            </a>
           </div>
+
           <div class="hero-stats">
-            <div class="hero-stat"><span class="hero-stat-num">150+</span><span class="hero-stat-label">Курсов</span></div>
-            <div class="hero-stat"><span class="hero-stat-num">50К+</span><span class="hero-stat-label">Студентов</span></div>
-            <div class="hero-stat"><span class="hero-stat-num">6</span><span class="hero-stat-label">Преподавателей</span></div>
-            <div class="hero-stat"><span class="hero-stat-num">4.8★</span><span class="hero-stat-label">Рейтинг</span></div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">150+</span>
+              <span class="hero-stat-label">Курсов</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">50 000+</span>
+              <span class="hero-stat-label">Студентов</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">95%</span>
+              <span class="hero-stat-label">Трудоустройство</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-illustration">
+            <div class="hero-ui-card hero-ui-card--main">
+              <div class="hero-ui-card__header">
+                <div class="hero-ui-card__dots">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="hero-ui-card__body">
+                <div class="hero-ui-card__icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div class="hero-ui-card__title">Frontend-разработка</div>
+                <div class="hero-ui-card__progress">
+                  <div class="hero-ui-card__progress-bar">
+                    <div class="hero-ui-card__progress-fill" style="width: 65%"></div>
+                  </div>
+                  <span>65%</span>
+                </div>
+                <div class="hero-ui-card__lessons">24 из 38 уроков пройдено</div>
+              </div>
+            </div>
+            <div class="hero-ui-card hero-ui-card--secondary">
+              <div class="hero-ui-card__body">
+                <div class="hero-ui-card__avatar">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div>
+                  <div class="hero-ui-card__name">Алексей Петров</div>
+                  <div class="hero-ui-card__role">Senior Python Developer</div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-ui-card hero-ui-card--floating">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Сертификат получен
+            </div>
           </div>
         </div>
       </div>
@@ -41,17 +105,17 @@
     <section class="search-section">
       <div class="container">
         <div class="search-box">
-          <span>🔍</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <input type="text" id="heroSearch" placeholder="Найдите курс по названию, теме или навыку...">
           <button class="btn btn-primary search-btn" id="heroSearchBtn">Найти</button>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--alt">
       <div class="container">
         <div class="section-header">
-          <span class="section-badge">📚 Категории</span>
+          <span class="section-badge">Категории</span>
           <h2 class="section-title">Выберите своё <span class="accent">направление</span></h2>
           <p class="section-subtitle">6 профессиональных направлений с актуальными курсами</p>
         </div>
@@ -59,27 +123,80 @@
       </div>
     </section>
 
-    <section class="section" style="background: var(--bg-secondary)">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge">⭐ Популярное</span>
-          <h2 class="section-title">Лучшие <span class="accent">курсы</span></h2>
-          <p class="section-subtitle">Самые востребованные курсы, которые помогут построить карьеру в IT</p>
-        </div>
-        <div class="courses-grid" id="featuredCoursesGrid"></div>
-        <div class="text-center mt-5">
-          <a href="pages/catalog.html" class="btn btn-outline btn-lg">Все курсы →</a>
-        </div>
-      </div>
-    </section>
+    <section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Популярное</span>
+
+    <!-- Блок популярных тегов -->
+    <div class="tags-filter" id="homeTagsFilter">
+      <button class="tag-filter-btn active" data-tag="all">Все</button>
+    </div>
+
+    <div class="courses-grid" id="featuredCoursesGrid"></div>
+    <div id="featuredEmpty" class="empty-state" style="display:none;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="margin-bottom:16px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <h3>Ничего не найдено</h3>
+      <p>Попробуйте выбрать другой тег</p>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="pages/catalog.html" class="btn btn-outline btn-lg">
+        Все курсы
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
 
     <section class="stats-section">
       <div class="container">
         <div class="stats-grid">
-          <div class="stat-item"><div class="stat-num">150+</div><div class="stat-label">Курсов на платформе</div></div>
-          <div class="stat-item"><div class="stat-num">50 000+</div><div class="stat-label">Студентов обучаются</div></div>
-          <div class="stat-item"><div class="stat-num">95%</div><div class="stat-label">Находят работу</div></div>
-          <div class="stat-item"><div class="stat-num">4.8 / 5</div><div class="stat-label">Средний рейтинг</div></div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+            </div>
+            <div class="stat-num">150+</div>
+            <div class="stat-label">Курсов на платформе</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-num">50 000+</div>
+            <div class="stat-label">Студентов обучаются</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div class="stat-num">95%</div>
+            <div class="stat-label">Находят работу</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="stat-num">4.8 / 5</div>
+            <div class="stat-label">Средний рейтинг</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">Преподаватели</span>
+          <h2 class="section-title">Учитесь у <span class="accent">лучших</span></h2>
+          <p class="section-subtitle">Наши преподаватели — практикующие специалисты из топовых IT-компаний</p>
+        </div>
+        <div class="teachers-grid" id="homeTeachersGrid"></div>
+        <div class="text-center mt-5">
+          <a href="pages/teachers.html" class="btn btn-outline btn-lg">
+            Все преподаватели
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -87,21 +204,7 @@
     <section class="section">
       <div class="container">
         <div class="section-header">
-          <span class="section-badge">👨‍🏫 Преподаватели</span>
-          <h2 class="section-title">Учитесь у <span class="accent">лучших</span></h2>
-          <p class="section-subtitle">Наши преподаватели — практикующие специалисты из топовых IT компаний</p>
-        </div>
-        <div class="teachers-grid" id="homeTeachersGrid"></div>
-        <div class="text-center mt-5">
-          <a href="pages/teachers.html" class="btn btn-outline btn-lg">Все преподаватели →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="background: var(--bg-secondary)">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge">💬 Отзывы</span>
+          <span class="section-badge">Отзывы</span>
           <h2 class="section-title">Что говорят <span class="accent">студенты</span></h2>
           <p class="section-subtitle">Реальные истории успеха наших выпускников</p>
         </div>
@@ -109,14 +212,15 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section cta-section">
       <div class="container">
-        <div style="background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--radius-xl); padding: 64px 48px; text-align: center; color: #fff; position: relative; overflow: hidden;">
-          <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900; margin-bottom: 16px;">Готовы начать обучение?</h2>
-          <p style="opacity: 0.85; font-size: 1.1rem; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto;">Присоединяйтесь к 50 000+ студентов и начните строить карьеру в IT уже сегодня</p>
-          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-            <a href="pages/register.html" class="btn btn-lg" style="background: #fff; color: var(--primary);">Зарегистрироваться бесплатно</a>
-            <a href="pages/catalog.html" class="btn btn-lg btn-outline" style="border-color: rgba(255,255,255,0.4); color: #fff;">Смотреть курсы</a>
+        <div class="cta-block">
+          <div class="cta-block__bg"></div>
+          <h2 class="cta-block__title">Готовы начать обучение?</h2>
+          <p class="cta-block__desc">Присоединяйтесь к 50 000+ студентов и начните строить карьеру в IT уже сегодня</p>
+          <div class="cta-block__actions">
+            <a href="pages/register.html" class="btn btn-white btn-lg">Зарегистрироваться бесплатно</a>
+            <a href="pages/catalog.html" class="btn btn-outline-white btn-lg">Смотреть курсы</a>
           </div>
         </div>
       </div>
@@ -131,69 +235,97 @@
   <script src="assets/js/main.js"></script>
   <script>
     function pageInit() {
-      const catGrid = document.getElementById("homeCategoriesGrid");
-      if (catGrid) {
-        catGrid.innerHTML = CATEGORIES.map(cat => `
-          <a href="pages/catalog.html?category=${cat.id}" class="category-card" style="border-color: ${cat.color}30;">
-            <div class="category-icon">${cat.icon}</div>
-            <div class="category-name">${cat.name}</div>
-            <div class="category-count">${cat.count} курсов</div>
-          </a>
-        `).join("");
-      }
+  const catGrid = document.getElementById("homeCategoriesGrid");
+  if (catGrid) {
+    catGrid.innerHTML = CATEGORIES.map(cat => `
+      <a href="pages/catalog.html?category=${cat.id}" class="category-card" style="--cat-color: ${cat.color}">
+        <div class="category-icon">${cat.icon}</div>
+        <div class="category-name">${cat.name}</div>
+        <div class="category-count">${cat.count} курсов</div>
+      </a>
+    `).join("");
+  }
 
-      const featuredGrid = document.getElementById("featuredCoursesGrid");
-      if (featuredGrid) {
-        const featured = COURSES.filter(c => c.featured);
-        featuredGrid.innerHTML = featured.map(c => renderCourseCard(c)).join("");
+  // === ТРИАДА: ФИЛЬТР ПО ТЕГАМ ===
+  const featuredGrid = document.getElementById("featuredCoursesGrid");
+  const featuredEmpty = document.getElementById("featuredEmpty");
+  const tagsFilter = document.getElementById("homeTagsFilter");
+
+  if (featuredGrid) {
+    const featured = COURSES.filter(c => c.featured);
+
+    // Собрать уникальные теги (до 8)
+    const allTags = [...new Set(featured.flatMap(c => c.tags))].slice(0, 8);
+
+    // Отрисовать кнопки тегов
+    allTags.forEach(tag => {
+      const btn = document.createElement("button");
+      btn.className = "tag-filter-btn";
+      btn.dataset.tag = tag;
+      btn.textContent = tag;
+      tagsFilter.appendChild(btn);
+    });
+
+    // Обработчик клика по всем кнопкам фильтра
+    tagsFilter.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tag-filter-btn");
+      if (!btn) return;
+
+      tagsFilter.querySelectorAll(".tag-filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const tag = btn.dataset.tag;
+      const filtered = tag === "all" ? featured : featured.filter(c => c.tags.includes(tag));
+
+      if (filtered.length === 0) {
+        featuredGrid.innerHTML = "";
+        featuredEmpty.style.display = "block";
+      } else {
+        featuredEmpty.style.display = "none";
+        featuredGrid.innerHTML = filtered.map(c => renderCourseCard(c)).join("");
         initCartButtons();
       }
+    });
 
-      const teachersGrid = document.getElementById("homeTeachersGrid");
-      if (teachersGrid) {
-        teachersGrid.innerHTML = TEACHERS.slice(0, 3).map(t => `
-          <div class="teacher-card">
-            <div class="teacher-avatar">${t.avatar}</div>
-            <div class="teacher-name">${t.name}</div>
-            <div class="teacher-title">${t.title}</div>
-            <div class="teacher-company">@ ${t.company}</div>
-            <div class="teacher-stats">
-              <div class="teacher-stat"><span class="teacher-stat-num">${t.students.toLocaleString("ru-RU")}</span><span class="teacher-stat-label">Студентов</span></div>
-              <div class="teacher-stat"><span class="teacher-stat-num">${t.courses}</span><span class="teacher-stat-label">Курсов</span></div>
-              <div class="teacher-stat"><span class="teacher-stat-num">${t.rating}</span><span class="teacher-stat-label">Рейтинг</span></div>
-            </div>
-          </div>
-        `).join("");
-      }
+    // Показать все при загрузке
+    featuredGrid.innerHTML = featured.map(c => renderCourseCard(c)).join("");
+    initCartButtons();
+  }
 
-      const tmGrid = document.getElementById("testimonialsGrid");
-      if (tmGrid) {
-        tmGrid.innerHTML = TESTIMONIALS.map(t => `
-          <div class="testimonial-card">
-            <div class="testimonial-stars">${"★".repeat(t.rating)}</div>
-            <p class="testimonial-text">"${t.text}"</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">${t.avatar}</div>
-              <div>
-                <div class="testimonial-name">${t.name}</div>
-                <div class="testimonial-role">${t.role}</div>
-              </div>
-            </div>
-          </div>
-        `).join("");
-      }
+  const teachersGrid = document.getElementById("homeTeachersGrid");
+  if (teachersGrid) {
+    teachersGrid.innerHTML = TEACHERS.slice(0, 3).map(t => renderTeacherCard(t)).join("");
+  }
 
-      const heroSearch = document.getElementById("heroSearch");
-      const heroSearchBtn = document.getElementById("heroSearchBtn");
-      if (heroSearch && heroSearchBtn) {
-        const doSearch = () => {
-          const q = heroSearch.value.trim();
-          if (q) window.location.href = `pages/catalog.html?q=${encodeURIComponent(q)}`;
-        };
-        heroSearchBtn.addEventListener("click", doSearch);
-        heroSearch.addEventListener("keypress", e => { if (e.key === "Enter") doSearch(); });
+  const tmGrid = document.getElementById("testimonialsGrid");
+  if (tmGrid) {
+    tmGrid.innerHTML = TESTIMONIALS.map(t => renderTestimonialCard(t)).join("");
+  }
+
+  const heroSearch = document.getElementById("heroSearch");
+  const heroSearchBtn = document.getElementById("heroSearchBtn");
+  if (heroSearch && heroSearchBtn) {
+    const doSearch = () => {
+  const q = heroSearch.value.trim();
+  if (q) window.location.href = `pages/catalog.html?q=${encodeURIComponent(q)}`;
+};
+    heroSearchBtn.addEventListener("click", doSearch);
+    heroSearch.addEventListener("keypress", e => { if (e.key === "Enter") doSearch(); });
+  }
+
+  // Intersection Observer for scroll animations
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
-    }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+}
   </script>
 </body>
 </html>
