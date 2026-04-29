@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блог — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>Блог</div>
+        <h1>Блог ITКурсы</h1>
+        <p>Статьи, гайды и истории успеха из мира IT</p>
+      </div>
+    </div>
+    <section class="section-sm">
+      <div class="container">
+        <div style="max-width:520px; margin-bottom:40px;">
+          <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="blogSearch" placeholder="Поиск статей...">
+          </div>
+        </div>
+        <div class="filter-bar" id="blogFilter">
+          <button class="filter-btn active" data-cat="all">Все</button>
+          <button class="filter-btn" data-cat="Карьера">Карьера</button>
+          <button class="filter-btn" data-cat="Технологии">Технологии</button>
+          <button class="filter-btn" data-cat="DevOps">DevOps</button>
+          <button class="filter-btn" data-cat="Data Science">Data Science</button>
+          <button class="filter-btn" data-cat="Дизайн">Дизайн</button>
+        </div>
+        <div class="blog-grid" id="blogGrid"></div>
+        <div id="blogEmpty" class="empty-state" style="display:none;">
+          <div class="empty-state-icon">📄</div>
+          <h3>Ничего не найдено</h3>
+          <p>Попробуйте другой запрос</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      let currentCat = "all", searchQ = "";
+
+      function render() {
+        let posts = [...BLOG_POSTS];
+        if (currentCat !== "all") posts = posts.filter(p => p.category === currentCat);
+        if (searchQ) posts = posts.filter(p => p.title.toLowerCase().includes(searchQ) || p.excerpt.toLowerCase().includes(searchQ));
+        const grid = document.getElementById("blogGrid");
+        const empty = document.getElementById("blogEmpty");
+        if (posts.length === 0) {
+          grid.innerHTML = "";
+          empty.style.display = "block";
+        } else {
+          empty.style.display = "none";
+          grid.innerHTML = posts.map(post => `
+            <div class="blog-card">
+              <div class="blog-card-img">${post.icon}</div>
+              <div class="blog-card-body">
+                <div class="blog-category">${post.category}</div>
+                <h3 class="blog-title"><a href="#">${post.title}</a></h3>
+                <p class="blog-excerpt">${post.excerpt}</p>
+                <div class="blog-meta">
+                  <span>👤 ${post.author}</span>
+                  <span>📅 ${post.date}</span>
+                  <span>⏱ ${post.readTime}</span>
+                </div>
+                <a href="#" class="btn btn-ghost btn-sm" style="margin-top:12px;" onclick="showToast('Статья открыта!','info'); return false;">Читать →</a>
+              </div>
+            </div>
+          `).join("");
+        }
+      }
+
+      document.getElementById("blogSearch").addEventListener("input", e => { searchQ = e.target.value.toLowerCase(); render(); });
+      document.querySelectorAll("#blogFilter .filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentCat = btn.dataset.cat;
+          document.querySelectorAll("#blogFilter .filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          render();
+        });
+      });
+
+      render();
+    }
+  </script>
+</body>
+</html>

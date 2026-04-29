@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>Контакты</div>
+        <h1>Свяжитесь с нами</h1>
+        <p>Мы ответим на все ваши вопросы</p>
+      </div>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <div>
+            <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:24px;">Напишите нам</h2>
+            <div class="contact-info" style="margin-bottom:40px;">
+              <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div>
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value">support@itkursy.ru</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div>
+                  <div class="contact-label">Телефон</div>
+                  <div class="contact-value">+7 (800) 555-35-35</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">🕐</div>
+                <div>
+                  <div class="contact-label">Часы работы</div>
+                  <div class="contact-value">Пн–Пт: 9:00–20:00</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                  <div class="contact-label">Адрес</div>
+                  <div class="contact-value">Москва, ул. Тверская, 12</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-card" style="max-width:none;">
+            <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:24px;">Отправить сообщение</h3>
+            <form id="contactForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Ваше имя</label>
+                  <input type="text" class="form-control" id="contactName" placeholder="Иван Петров" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" id="contactEmail" placeholder="ivan@example.com" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Тема</label>
+                <select class="form-control" id="contactSubject">
+                  <option>Технический вопрос</option>
+                  <option>Вопрос об оплате</option>
+                  <option>Сотрудничество</option>
+                  <option>Стать преподавателем</option>
+                  <option>Другое</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Сообщение</label>
+                <textarea class="form-control" id="contactMessage" rows="5" placeholder="Опишите ваш вопрос или предложение..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg w-100">📤 Отправить сообщение</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        showToast("✅ Сообщение отправлено! Мы ответим в течение 2 часов.", "success");
+        this.reset();
+      });
+    }
+  </script>
+</body>
+</html>

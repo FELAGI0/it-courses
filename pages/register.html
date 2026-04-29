@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="form-card" style="max-width:520px;">
+          <div style="text-align:center; margin-bottom:8px; font-size:2.5rem;">🎓</div>
+          <h2 style="text-align:center;">Создать аккаунт</h2>
+          <p class="subtitle" style="text-align:center;">Начните обучение бесплатно</p>
+          <div id="registerAlert" style="display:none;" class="alert alert-danger mb-3"></div>
+          <form id="registerForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Имя</label>
+                <input type="text" class="form-control" id="regFirstName" placeholder="Иван" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Фамилия</label>
+                <input type="text" class="form-control" id="regLastName" placeholder="Петров" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="regEmail" placeholder="ivan@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="regPassword" placeholder="Минимум 6 символов" required minlength="6">
+              <div class="form-hint">Минимум 6 символов</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Подтвердите пароль</label>
+              <input type="password" class="form-control" id="regPassword2" placeholder="Повторите пароль" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Выберите аватар</label>
+              <div id="avatarPicker" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;"></div>
+            </div>
+            <label class="form-check mb-3">
+              <input type="checkbox" id="regAgree" required>
+              Я согласен с <a href="#" class="form-link">условиями использования</a>
+            </label>
+            <button type="submit" class="btn btn-primary w-100 btn-lg">Создать аккаунт</button>
+            <div class="form-divider">или</div>
+            <div style="text-align:center; font-size:0.9rem;">
+              Уже есть аккаунт? <a href="login.html" class="form-link">Войти</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      if (Storage.auth.isLoggedIn()) {
+        window.location.href = "profile.html";
+        return;
+      }
+      const avatars = ["👤", "👨‍💻", "👩‍💻", "🧑‍🚀", "👨‍🎨", "👩‍🎨", "🦊", "🐱", "🐻", "🦁"];
+      let selectedAvatar = "👤";
+      const picker = document.getElementById("avatarPicker");
+      avatars.forEach(av => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = av;
+        btn.style.cssText = "width:42px; height:42px; font-size:1.5rem; border-radius:50%; border:2px solid var(--border); background:var(--bg); cursor:pointer; transition:all 0.2s;";
+        btn.addEventListener("click", () => {
+          selectedAvatar = av;
+          picker.querySelectorAll("button").forEach(b => b.style.borderColor = "var(--border)");
+          btn.style.borderColor = "var(--primary)";
+          btn.style.background = "var(--primary)18";
+        });
+        picker.appendChild(btn);
+      });
+
+      document.getElementById("registerForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const alertEl = document.getElementById("registerAlert");
+        const password = document.getElementById("regPassword").value;
+        const password2 = document.getElementById("regPassword2").value;
+        if (password !== password2) {
+          alertEl.style.display = "flex";
+          alertEl.innerHTML = "❌ Пароли не совпадают";
+          return;
+        }
+        const result = Storage.auth.register({
+          name: document.getElementById("regFirstName").value + " " + document.getElementById("regLastName").value,
+          email: document.getElementById("regEmail").value,
+          password,
+          avatar: selectedAvatar
+        });
+        if (result.success) {
+          showToast("Аккаунт успешно создан!", "success");
+          setTimeout(() => window.location.href = "profile.html", 800);
+        } else {
+          alertEl.style.display = "flex";
+          alertEl.innerHTML = "❌ " + result.message;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

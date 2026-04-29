@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог курсов — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>Каталог</div>
+        <h1>Каталог курсов</h1>
+        <p>Найдите курс, который откроет путь к вашей мечте в IT</p>
+      </div>
+    </div>
+    <section class="section-sm">
+      <div class="container">
+        <div style="display:flex; gap:16px; align-items:center; margin-bottom:24px; flex-wrap:wrap;">
+          <div class="search-box" style="max-width:440px; flex:1;">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Поиск курсов...">
+          </div>
+          <select class="form-control" id="sortSelect" style="max-width:200px; width:auto;">
+            <option value="default">По умолчанию</option>
+            <option value="price-asc">Цена: сначала дешевле</option>
+            <option value="price-desc">Цена: сначала дороже</option>
+            <option value="rating">По рейтингу</option>
+            <option value="students">По популярности</option>
+          </select>
+        </div>
+        <div class="filter-bar" id="filterBar">
+          <button class="filter-btn active" data-cat="all">Все курсы</button>
+        </div>
+        <div style="margin-bottom:16px;">
+          <span id="coursesCount" style="font-size:0.88rem; color:var(--text-muted);"></span>
+        </div>
+        <div class="courses-grid" id="catalogGrid"></div>
+        <div id="emptyState" class="empty-state" style="display:none;">
+          <div class="empty-state-icon">🔍</div>
+          <h3>Ничего не найдено</h3>
+          <p>Попробуйте изменить поисковый запрос или фильтры</p>
+          <button class="btn btn-primary" id="resetFilters">Сбросить фильтры</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      const filterBar = document.getElementById("filterBar");
+      const sortSelect = document.getElementById("sortSelect");
+      let currentCat = "all";
+      let currentSort = "default";
+      let searchQuery = "";
+
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "filter-btn";
+        btn.dataset.cat = cat.id;
+        btn.textContent = `${cat.icon} ${cat.name}`;
+        filterBar.appendChild(btn);
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get("category");
+      const qParam = urlParams.get("q");
+      if (catParam) { currentCat = catParam; }
+      if (qParam) {
+        document.getElementById("searchInput").value = qParam;
+        searchQuery = qParam.toLowerCase();
+      }
+
+      filterBar.querySelectorAll(".filter-btn").forEach(btn => {
+        if (btn.dataset.cat === currentCat) btn.classList.add("active");
+        else btn.classList.remove("active");
+        btn.addEventListener("click", () => {
+          currentCat = btn.dataset.cat;
+          filterBar.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          render();
+        });
+      });
+
+      document.getElementById("searchInput").addEventListener("input", e => {
+        searchQuery = e.target.value.toLowerCase();
+        render();
+      });
+
+      sortSelect.addEventListener("change", () => {
+        currentSort = sortSelect.value;
+        render();
+      });
+
+      document.getElementById("resetFilters")?.addEventListener("click", () => {
+        currentCat = "all";
+        currentSort = "default";
+        searchQuery = "";
+        document.getElementById("searchInput").value = "";
+        sortSelect.value = "default";
+        filterBar.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        filterBar.querySelector('[data-cat="all"]').classList.add("active");
+        render();
+      });
+
+      function render() {
+        let courses = [...COURSES];
+        if (currentCat !== "all") courses = courses.filter(c => c.category === currentCat);
+        if (searchQuery) courses = courses.filter(c =>
+          c.title.toLowerCase().includes(searchQuery) ||
+          c.description.toLowerCase().includes(searchQuery) ||
+          c.tags.some(t => t.toLowerCase().includes(searchQuery))
+        );
+        if (currentSort === "price-asc") courses.sort((a, b) => a.price - b.price);
+        else if (currentSort === "price-desc") courses.sort((a, b) => b.price - a.price);
+        else if (currentSort === "rating") courses.sort((a, b) => b.rating - a.rating);
+        else if (currentSort === "students") courses.sort((a, b) => b.students - a.students);
+
+        const grid = document.getElementById("catalogGrid");
+        const empty = document.getElementById("emptyState");
+        const count = document.getElementById("coursesCount");
+
+        if (courses.length === 0) {
+          grid.innerHTML = "";
+          empty.style.display = "block";
+          count.textContent = "";
+        } else {
+          empty.style.display = "none";
+          count.textContent = `Найдено курсов: ${courses.length}`;
+          grid.innerHTML = courses.map(c => renderCourseCard(c)).join("");
+          initCartButtons();
+        }
+      }
+
+      render();
+    }
+  </script>
+</body>
+</html>

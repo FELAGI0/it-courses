@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <h1>Личный кабинет</h1>
+        <p>Управляйте своим обучением и профилем</p>
+      </div>
+    </div>
+    <section class="section-sm">
+      <div class="container">
+        <div id="profileContent"></div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      const user = Storage.auth.getCurrentUser();
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const myCourses = (user.courses || []).map(id => COURSES.find(c => c.id === id)).filter(Boolean);
+
+      document.getElementById("profileContent").innerHTML = `
+        <div class="profile-layout">
+          <div class="profile-sidebar">
+            <div class="profile-avatar-big">${user.avatar}</div>
+            <div class="profile-name">${user.name}</div>
+            <div class="profile-email">${user.email}</div>
+            <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:20px;">На платформе с ${user.createdAt}</div>
+            <div style="background:var(--bg); border-radius:var(--radius-sm); padding:16px; margin-bottom:20px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem;">
+                <span>Прогресс</span><span style="font-weight:700; color:var(--primary);">${myCourses.length} курсов</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(myCourses.length * 10, 100)}%"></div></div>
+            </div>
+            <nav class="profile-nav">
+              <a href="#" class="active" data-tab="overview">📊 Обзор</a>
+              <a href="#" data-tab="courses">📚 Мои курсы</a>
+              <a href="#" data-tab="certificates">🏆 Сертификаты</a>
+              <a href="#" data-tab="settings">⚙️ Настройки</a>
+              <a href="#" id="logoutBtn" style="color:var(--danger) !important; margin-top:12px;">🚪 Выйти</a>
+            </nav>
+          </div>
+          <div class="profile-content">
+            <div class="profile-tab active" id="tab-overview">
+              <div class="profile-section-title">Обзор аккаунта</div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px;">
+                <div style="background:var(--primary)10; border:1px solid var(--primary)30; border-radius:var(--radius); padding:20px; text-align:center;">
+                  <div style="font-size:2rem; font-weight:900; color:var(--primary);">${myCourses.length}</div>
+                  <div style="font-size:0.85rem; color:var(--text-muted);">Курсов куплено</div>
+                </div>
+                <div style="background:var(--success)10; border:1px solid var(--success)30; border-radius:var(--radius); padding:20px; text-align:center;">
+                  <div style="font-size:2rem; font-weight:900; color:var(--success);">${myCourses.length}</div>
+                  <div style="font-size:0.85rem; color:var(--text-muted);">Сертификатов</div>
+                </div>
+                <div style="background:var(--warning)10; border:1px solid var(--warning)30; border-radius:var(--radius); padding:20px; text-align:center;">
+                  <div style="font-size:2rem; font-weight:900; color:var(--warning);">0</div>
+                  <div style="font-size:0.85rem; color:var(--text-muted);">Дней учёбы</div>
+                </div>
+              </div>
+              ${myCourses.length > 0 ? `
+                <h4 style="margin-bottom:16px;">Продолжить обучение</h4>
+                ${myCourses.slice(0, 3).map(c => `
+                  <div style="display:flex; gap:14px; align-items:center; padding:14px; background:var(--bg); border-radius:var(--radius-sm); margin-bottom:10px;">
+                    <div style="width:48px; height:48px; border-radius:var(--radius-sm); background:linear-gradient(135deg,${c.color}20,${c.color}40); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">${c.icon}</div>
+                    <div style="flex:1;">
+                      <div style="font-weight:600; font-size:0.95rem;">${c.title}</div>
+                      <div class="progress-bar mt-1"><div class="progress-fill" style="width:${Math.floor(Math.random()*60+20)}%"></div></div>
+                    </div>
+                    <a href="course.html?id=${c.id}" class="btn btn-outline btn-sm">Продолжить</a>
+                  </div>
+                `).join("")}
+              ` : `
+                <div class="alert alert-info"><span>ℹ️</span>Вы ещё не купили ни одного курса. <a href="catalog.html" class="form-link">Перейти в каталог →</a></div>
+              `}
+            </div>
+
+            <div class="profile-tab" id="tab-courses">
+              <div class="profile-section-title">Мои курсы (${myCourses.length})</div>
+              ${myCourses.length === 0 ? `
+                <div class="empty-state" style="padding:48px 0;">
+                  <div class="empty-state-icon">📚</div>
+                  <h3>Курсов пока нет</h3>
+                  <p>Добавьте курсы в корзину и оплатите их</p>
+                  <a href="catalog.html" class="btn btn-primary">Перейти в каталог</a>
+                </div>
+              ` : `
+                <div class="courses-grid">
+                  ${myCourses.map(c => renderCourseCard(c)).join("")}
+                </div>
+              `}
+            </div>
+
+            <div class="profile-tab" id="tab-certificates">
+              <div class="profile-section-title">Мои сертификаты (${myCourses.length})</div>
+              ${myCourses.length === 0 ? `
+                <div class="empty-state" style="padding:48px 0;">
+                  <div class="empty-state-icon">🏆</div>
+                  <h3>Сертификатов пока нет</h3>
+                  <p>Завершите курс, чтобы получить сертификат</p>
+                </div>
+              ` : `
+                <div style="display:grid; gap:16px;">
+                  ${myCourses.map(c => `
+                    <div style="display:flex; gap:14px; align-items:center; padding:16px; background:var(--bg); border-radius:var(--radius); border:1px solid var(--border);">
+                      <div style="font-size:2rem;">🏆</div>
+                      <div style="flex:1;">
+                        <div style="font-weight:700;">${c.title}</div>
+                        <div style="font-size:0.83rem; color:var(--text-muted);">Сертификат #IT-${c.id * 1000 + user.id}</div>
+                      </div>
+                      <a href="certificate.html?course=${c.id}" class="btn btn-outline btn-sm">Посмотреть</a>
+                    </div>
+                  `).join("")}
+                </div>
+              `}
+            </div>
+
+            <div class="profile-tab" id="tab-settings">
+              <div class="profile-section-title">Настройки профиля</div>
+              <form id="profileSettingsForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="settingsName" value="${user.name}">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="settingsEmail" value="${user.email}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">О себе</label>
+                  <textarea class="form-control" id="settingsBio" rows="3" placeholder="Расскажите о себе...">${user.bio || ""}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Аватар</label>
+                  <div id="settingsAvatarPicker" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                  <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                  <button type="button" class="btn btn-outline" id="changeThemeBtn">🎨 Сменить тему</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll(".profile-nav a[data-tab]").forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+          const tab = link.dataset.tab;
+          document.querySelectorAll(".profile-nav a[data-tab]").forEach(a => a.classList.remove("active"));
+          document.querySelectorAll(".profile-tab").forEach(t => t.classList.remove("active"));
+          link.classList.add("active");
+          document.getElementById(`tab-${tab}`)?.classList.add("active");
+        });
+      });
+
+      document.getElementById("logoutBtn")?.addEventListener("click", e => {
+        e.preventDefault();
+        Storage.auth.logout();
+        showToast("Вы вышли из аккаунта", "info");
+        setTimeout(() => window.location.href = "../index.html", 1000);
+      });
+
+      const avatars = ["👤", "👨‍💻", "👩‍💻", "🧑‍🚀", "👨‍🎨", "👩‍🎨", "🦊", "🐱", "🐻", "🦁"];
+      let selAvatar = user.avatar;
+      const settingsPicker = document.getElementById("settingsAvatarPicker");
+      if (settingsPicker) {
+        avatars.forEach(av => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = av;
+          btn.style.cssText = `width:42px; height:42px; font-size:1.5rem; border-radius:50%; border:2px solid ${av === selAvatar ? "var(--primary)" : "var(--border)"}; background:${av === selAvatar ? "var(--primary)18" : "var(--bg)"}; cursor:pointer; transition:all 0.2s;`;
+          btn.addEventListener("click", () => {
+            selAvatar = av;
+            settingsPicker.querySelectorAll("button").forEach(b => { b.style.borderColor = "var(--border)"; b.style.background = "var(--bg)"; });
+            btn.style.borderColor = "var(--primary)";
+            btn.style.background = "var(--primary)18";
+          });
+          settingsPicker.appendChild(btn);
+        });
+      }
+
+      document.getElementById("profileSettingsForm")?.addEventListener("submit", e => {
+        e.preventDefault();
+        Storage.auth.updateUser({
+          name: document.getElementById("settingsName").value,
+          email: document.getElementById("settingsEmail").value,
+          bio: document.getElementById("settingsBio").value,
+          avatar: selAvatar
+        });
+        showToast("Профиль обновлён!", "success");
+        setTimeout(() => window.location.reload(), 800);
+      });
+
+      document.getElementById("changeThemeBtn")?.addEventListener("click", () => {
+        const t = Storage.theme.get() === "dark" ? "light" : "dark";
+        Storage.theme.set(t);
+        document.documentElement.setAttribute("data-theme", t);
+        showToast(`Тема изменена: ${t === "dark" ? "Тёмная" : "Светлая"}`, "info");
+      });
+
+      initCartButtons();
+    }
+  </script>
+</body>
+</html>

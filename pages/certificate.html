@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сертификат — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span><a href="profile.html">Профиль</a><span class="breadcrumb-sep">›</span>Сертификат</div>
+        <h1>Сертификат об окончании</h1>
+        <p>Подтверждение вашего профессионального уровня</p>
+      </div>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div id="certContent"></div>
+        <section style="margin-top:60px;">
+          <div class="section-header">
+            <h2 class="section-title">Почему наши сертификаты <span class="accent">ценятся</span></h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;">
+            <div class="value-card"><div class="value-icon">🏢</div><div class="value-title">Признание работодателей</div><div class="value-text">Наши сертификаты принимают ведущие IT компании: Яндекс, VK, Сбер и другие</div></div>
+            <div class="value-card"><div class="value-icon">🔐</div><div class="value-title">Уникальный ID</div><div class="value-text">Каждый сертификат имеет уникальный идентификатор, который можно проверить онлайн</div></div>
+            <div class="value-card"><div class="value-icon">♾️</div><div class="value-title">Бессрочный</div><div class="value-text">Сертификат действует без ограничения срока и хранится в вашем профиле</div></div>
+            <div class="value-card"><div class="value-icon">💼</div><div class="value-title">Для LinkedIn</div><div class="value-text">Добавьте сертификат в профиль LinkedIn и привлекайте внимание рекрутеров</div></div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      const params = new URLSearchParams(window.location.search);
+      const courseId = parseInt(params.get("course"));
+      const user = Storage.auth.getCurrentUser();
+      const container = document.getElementById("certContent");
+      const course = COURSES.find(c => c.id === courseId);
+
+      if (!user) {
+        container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔒</div><h3>Войдите в аккаунт</h3><p>Для просмотра сертификата необходимо войти</p><a href="login.html" class="btn btn-primary">Войти</a></div>`;
+        return;
+      }
+      if (!course) {
+        container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">❓</div><h3>Сертификат не найден</h3><a href="profile.html" class="btn btn-primary">К профилю</a></div>`;
+        return;
+      }
+
+      const certId = `IT-${course.id * 1000 + user.id}`;
+      const today = new Date().toLocaleDateString("ru-RU", { year: "numeric", month: "long", day: "numeric" });
+
+      container.innerHTML = `
+        <div class="certificate-card">
+          <div class="certificate-logo">🎓 ITКурсы</div>
+          <div class="certificate-title">Сертификат об успешном окончании</div>
+          <div class="certificate-badge">🏆</div>
+          <div class="certificate-name">${user.name}</div>
+          <div class="certificate-course">успешно завершил(а) курс</div>
+          <div style="font-size:1.4rem; font-weight:800; color:#e2b96f; margin:10px 0;">"${course.title}"</div>
+          <div style="font-size:0.9rem; opacity:0.7; margin-bottom:8px;">Преподаватель: ${course.instructor}</div>
+          <div style="font-size:0.9rem; opacity:0.7; margin-bottom:8px;">${course.duration} • ${course.lessons} уроков</div>
+          <div class="certificate-date">Дата выдачи: ${today}</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:20px; border-top:1px solid rgba(255,255,255,0.15); flex-wrap:wrap; gap:12px;">
+            <div>
+              <div style="font-size:1.2rem; font-style:italic; opacity:0.8;">Алексей Куренков</div>
+              <div style="font-size:0.75rem; opacity:0.5;">CEO ITКурсы</div>
+            </div>
+            <div class="certificate-id">ID: ${certId}</div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-primary btn-lg" onclick="window.print()">🖨️ Распечатать</button>
+          <button class="btn btn-outline btn-lg" onclick="showToast('Ссылка скопирована!','success')">🔗 Поделиться</button>
+          <a href="profile.html" class="btn btn-outline btn-lg">← К профилю</a>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

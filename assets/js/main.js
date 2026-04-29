@@ -1,0 +1,312 @@
+const ROOT = "/";
+const PAGES = "pages/";
+
+function getNavHTML() {
+  const user = Storage.auth.getCurrentUser();
+  const cartCount = Storage.cart.getCount();
+  return `
+    <nav class="navbar">
+      <div class="container nav-inner">
+        <a href="${ROOT}index.html" class="logo">
+          <span class="logo-icon">🎓</span>
+          <span class="logo-text">IT<span class="accent">Курсы</span></span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="${ROOT}index.html">Главная</a></li>
+          <li><a href="${ROOT}${PAGES}catalog.html">Курсы</a></li>
+          <li><a href="${ROOT}${PAGES}categories.html">Категории</a></li>
+          <li><a href="${ROOT}${PAGES}teachers.html">Преподаватели</a></li>
+          <li><a href="${ROOT}${PAGES}blog.html">Блог</a></li>
+          <li><a href="${ROOT}${PAGES}about.html">О нас</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="btn-icon theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
+          <a href="${ROOT}${PAGES}cart.html" class="btn-icon cart-btn" title="Корзина">
+            🛒
+            <span class="cart-badge" id="cartBadge" ${cartCount === 0 ? 'style="display:none"' : ""}>${cartCount}</span>
+          </a>
+          ${user
+            ? `<a href="${ROOT}${PAGES}profile.html" class="btn btn-outline nav-profile">
+                <span>${user.avatar}</span> ${user.name.split(" ")[0]}
+               </a>`
+            : `<a href="${ROOT}${PAGES}login.html" class="btn btn-outline">Войти</a>
+               <a href="${ROOT}${PAGES}register.html" class="btn btn-primary">Регистрация</a>`
+          }
+        </div>
+        <button class="burger" id="burger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="${ROOT}index.html">Главная</a>
+        <a href="${ROOT}${PAGES}catalog.html">Курсы</a>
+        <a href="${ROOT}${PAGES}categories.html">Категории</a>
+        <a href="${ROOT}${PAGES}teachers.html">Преподаватели</a>
+        <a href="${ROOT}${PAGES}blog.html">Блог</a>
+        <a href="${ROOT}${PAGES}about.html">О нас</a>
+        <a href="${ROOT}${PAGES}cart.html">🛒 Корзина (${cartCount})</a>
+        ${user
+          ? `<a href="${ROOT}${PAGES}profile.html">👤 ${user.name}</a>
+             <a href="#" id="mobileLogout">Выйти</a>`
+          : `<a href="${ROOT}${PAGES}login.html">Войти</a>
+             <a href="${ROOT}${PAGES}register.html">Регистрация</a>`
+        }
+      </div>
+    </nav>
+  `;
+}
+
+function getFooterHTML() {
+  return `
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="${ROOT}index.html" class="logo">
+              <span class="logo-icon">🎓</span>
+              <span class="logo-text">IT<span class="accent">Курсы</span></span>
+            </a>
+            <p>Современная платформа онлайн-обучения IT профессиям. Более 150 курсов от ведущих специалистов.</p>
+            <div class="footer-socials">
+              <a href="#" class="social-btn">📘</a>
+              <a href="#" class="social-btn">📸</a>
+              <a href="#" class="social-btn">💬</a>
+              <a href="#" class="social-btn">▶️</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Курсы</h4>
+            <ul>
+              <li><a href="${ROOT}${PAGES}catalog.html">Все курсы</a></li>
+              <li><a href="${ROOT}${PAGES}categories.html">Категории</a></li>
+              <li><a href="${ROOT}${PAGES}pricing.html">Тарифы</a></li>
+              <li><a href="${ROOT}${PAGES}certificate.html">Сертификаты</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Компания</h4>
+            <ul>
+              <li><a href="${ROOT}${PAGES}about.html">О нас</a></li>
+              <li><a href="${ROOT}${PAGES}teachers.html">Преподаватели</a></li>
+              <li><a href="${ROOT}${PAGES}blog.html">Блог</a></li>
+              <li><a href="${ROOT}${PAGES}contact.html">Контакты</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Поддержка</h4>
+            <ul>
+              <li><a href="${ROOT}${PAGES}faq.html">FAQ</a></li>
+              <li><a href="${ROOT}${PAGES}contact.html">Помощь</a></li>
+              <li><a href="#">Политика конфиденциальности</a></li>
+              <li><a href="#">Условия использования</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2024 ITКурсы. Все права защищены.</p>
+          <p>Сделано с ❤️ для учебной практики</p>
+        </div>
+      </div>
+    </footer>
+  `;
+}
+
+function injectLayout() {
+  const headerEl = document.getElementById("app-header");
+  const footerEl = document.getElementById("app-footer");
+  if (headerEl) headerEl.innerHTML = getNavHTML();
+  if (footerEl) footerEl.innerHTML = getFooterHTML();
+  initNavEvents();
+}
+
+function initNavEvents() {
+  const burger = document.getElementById("burger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const themeToggle = document.getElementById("themeToggle");
+  const mobileLogout = document.getElementById("mobileLogout");
+
+  if (burger && mobileMenu) {
+    burger.addEventListener("click", () => {
+      burger.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+  }
+
+  if (themeToggle) {
+    const currentTheme = Storage.theme.get();
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
+    themeToggle.addEventListener("click", () => {
+      const t = Storage.theme.get() === "dark" ? "light" : "dark";
+      Storage.theme.set(t);
+      document.documentElement.setAttribute("data-theme", t);
+      themeToggle.textContent = t === "dark" ? "☀️" : "🌙";
+    });
+  }
+
+  if (mobileLogout) {
+    mobileLogout.addEventListener("click", e => {
+      e.preventDefault();
+      Storage.auth.logout();
+      showToast("Вы вышли из аккаунта", "info");
+      setTimeout(() => window.location.href = ROOT + "index.html", 1000);
+    });
+  }
+
+  const navLinks = document.querySelectorAll(".nav-links a, .mobile-menu a");
+  const currentPath = window.location.pathname.split("/").pop();
+  navLinks.forEach(link => {
+    if (link.href.includes(currentPath) && currentPath !== "") {
+      link.classList.add("active");
+    }
+  });
+}
+
+function updateCartBadge() {
+  const badge = document.getElementById("cartBadge");
+  if (!badge) return;
+  const count = Storage.cart.getCount();
+  badge.textContent = count;
+  badge.style.display = count > 0 ? "flex" : "none";
+}
+
+function showToast(message, type = "success") {
+  const container = document.getElementById("toast-container");
+  if (!container) return;
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
+  toast.innerHTML = `<span class="toast-icon">${icons[type] || "✅"}</span><span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => toast.classList.add("show"), 10);
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
+  let stars = "";
+  for (let i = 0; i < full; i++) stars += "★";
+  if (half) stars += "½";
+  const empty = 5 - full - (half ? 1 : 0);
+  for (let i = 0; i < empty; i++) stars += "☆";
+  return `<span class="stars">${stars}</span><span class="rating-num">${rating}</span>`;
+}
+
+function formatPrice(price) {
+  if (price === 0) return "Бесплатно";
+  return new Intl.NumberFormat("ru-RU").format(price) + " ₽";
+}
+
+function renderCourseCard(course) {
+  const inCart = Storage.cart.isInCart(course.id);
+  const inWL = Storage.wishlist.isInWishlist(course.id);
+
+  const courseUrl = `/pages/course.html?id=${course.id}`;
+
+  return `
+    <div class="course-card" data-id="${course.id}">
+      <a href="${courseUrl}" class="card-image-link">
+        <div class="card-img" style="background: linear-gradient(135deg, ${course.color}22, ${course.color}44)">
+          <span class="card-icon">${course.icon}</span>
+          <span class="card-level">${course.level}</span>
+          <button class="wishlist-btn ${inWL ? "active" : ""}" data-id="${course.id}" title="В избранное">♥</button>
+        </div>
+      </a>
+
+      <div class="card-body">
+        <span class="card-category">${course.categoryName}</span>
+
+        <h3 class="card-title">
+          <a href="${courseUrl}">${course.title}</a>
+        </h3>
+
+        <p class="card-desc">${course.description}</p>
+
+        <div class="card-meta">
+          <span>📖 ${course.lessons} уроков</span>
+          <span>⏱ ${course.duration}</span>
+        </div>
+
+        <div class="card-rating">
+          ${renderStars(course.rating)}
+          <span class="students-count">(${course.students.toLocaleString("ru-RU")})</span>
+        </div>
+
+        <div class="card-instructor">👨‍🏫 ${course.instructor}</div>
+
+        <div class="card-footer">
+          <div class="card-prices">
+            <span class="price-current">${formatPrice(course.price)}</span>
+            ${course.oldPrice ? `<span class="price-old">${formatPrice(course.oldPrice)}</span>` : ""}
+          </div>
+
+          <button class="btn ${inCart ? "btn-success" : "btn-primary"} btn-sm add-to-cart" data-id="${course.id}">
+            ${inCart ? "✓ В корзине" : "В корзину"}
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function initCartButtons() {
+  document.querySelectorAll(".add-to-cart").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      const id = parseInt(btn.dataset.id);
+      const result = Storage.cart.addToCart(id);
+      if (result.success) {
+        btn.textContent = "✓ В корзине";
+        btn.classList.remove("btn-primary");
+        btn.classList.add("btn-success");
+        showToast(result.message, "success");
+        updateCartBadge();
+      } else {
+        showToast(result.message, "warning");
+      }
+    });
+  });
+
+  document.querySelectorAll(".wishlist-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = parseInt(btn.dataset.id);
+      const added = Storage.wishlist.toggle(id);
+      btn.classList.toggle("active", added);
+      showToast(added ? "Добавлено в избранное" : "Удалено из избранного", "info");
+    });
+  });
+}
+
+function initSearch(courses, renderFn) {
+  const searchInput = document.getElementById("searchInput");
+  if (!searchInput) return;
+  searchInput.addEventListener("input", () => {
+    const q = searchInput.value.toLowerCase().trim();
+    const filtered = q ? courses.filter(c =>
+      c.title.toLowerCase().includes(q) ||
+      c.description.toLowerCase().includes(q) ||
+      c.tags.some(t => t.toLowerCase().includes(q)) ||
+      c.instructor.toLowerCase().includes(q)
+    ) : courses;
+    renderFn(filtered);
+  });
+}
+
+function initTheme() {
+  const t = Storage.theme.get();
+  document.documentElement.setAttribute("data-theme", t);
+}
+
+function init() {
+  initTheme();
+  injectLayout();
+  if (typeof pageInit === "function") pageInit();
+}
+
+document.addEventListener("DOMContentLoaded", init);

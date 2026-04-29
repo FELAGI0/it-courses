@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О нас — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>О нас</div>
+        <h1>О платформе ITКурсы</h1>
+        <p>Миссия, команда и ценности нашей компании</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-bottom:80px; flex-wrap:wrap;">
+          <div>
+            <span class="section-badge">🎯 Наша миссия</span>
+            <h2 class="section-title" style="text-align:left;">Делаем IT образование <span class="accent">доступным</span></h2>
+            <p style="color:var(--text-muted); font-size:1.05rem; line-height:1.8; margin-bottom:20px;">Мы верим, что качественное IT образование должно быть доступно каждому. Наша платформа объединяет лучших преподавателей и мотивированных студентов со всей страны.</p>
+            <p style="color:var(--text-muted); font-size:1rem; line-height:1.8;">Основанная в 2020 году, платформа ITКурсы за 4 года стала одной из самых крупных образовательных платформ в России с более чем 50 000 студентов.</p>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="background:var(--primary)10; border:1px solid var(--primary)30; border-radius:var(--radius-lg); padding:28px; text-align:center;"><div style="font-size:2.2rem; font-weight:900; color:var(--primary);">2020</div><div style="font-size:0.88rem; color:var(--text-muted);">Год основания</div></div>
+            <div style="background:var(--success)10; border:1px solid var(--success)30; border-radius:var(--radius-lg); padding:28px; text-align:center;"><div style="font-size:2.2rem; font-weight:900; color:var(--success);">50К+</div><div style="font-size:0.88rem; color:var(--text-muted);">Студентов</div></div>
+            <div style="background:var(--warning)10; border:1px solid var(--warning)30; border-radius:var(--radius-lg); padding:28px; text-align:center;"><div style="font-size:2.2rem; font-weight:900; color:var(--warning);">150+</div><div style="font-size:0.88rem; color:var(--text-muted);">Курсов</div></div>
+            <div style="background:var(--secondary)10; border:1px solid var(--secondary)30; border-radius:var(--radius-lg); padding:28px; text-align:center;"><div style="font-size:2.2rem; font-weight:900; color:var(--secondary);">95%</div><div style="font-size:0.88rem; color:var(--text-muted);">Находят работу</div></div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-badge">💎 Наши ценности</span>
+          <h2 class="section-title">Что нами движет</h2>
+        </div>
+        <div class="about-values">
+          <div class="value-card"><div class="value-icon">🎯</div><div class="value-title">Практичность</div><div class="value-text">Каждый курс — это реальные навыки, применимые сразу после обучения. Никакой воды, только практика.</div></div>
+          <div class="value-card"><div class="value-icon">🏆</div><div class="value-title">Качество</div><div class="value-text">Строгий отбор преподавателей. Только практикующие специалисты с реальным опытом в индустрии.</div></div>
+          <div class="value-card"><div class="value-icon">🤝</div><div class="value-title">Поддержка</div><div class="value-text">Мы с вами на каждом шагу. Преподаватели отвечают на вопросы, сообщество помогает расти.</div></div>
+          <div class="value-card"><div class="value-icon">🚀</div><div class="value-title">Инновации</div><div class="value-text">Постоянно обновляем курсы и следим за трендами. Учите только актуальные технологии.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item"><div class="stat-num">50 000+</div><div class="stat-label">Студентов обучились</div></div>
+          <div class="stat-item"><div class="stat-num">150+</div><div class="stat-label">Курсов доступно</div></div>
+          <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Экспертов-преподавателей</div></div>
+          <div class="stat-item"><div class="stat-num">4 года</div><div class="stat-label">На рынке</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">💬 Отзывы</span>
+          <h2 class="section-title">Что говорят наши студенты</h2>
+        </div>
+        <div class="testimonials-grid" id="aboutTestimonials"></div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      document.getElementById("aboutTestimonials").innerHTML = TESTIMONIALS.map(t => `
+        <div class="testimonial-card">
+          <div class="testimonial-stars">${"★".repeat(t.rating)}</div>
+          <p class="testimonial-text">"${t.text}"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">${t.avatar}</div>
+            <div><div class="testimonial-name">${t.name}</div><div class="testimonial-role">${t.role}</div></div>
+          </div>
+        </div>
+      `).join("");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITКурсы — Онлайн образование нового поколения</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Более 150 000 студентов уже учатся
+          </div>
+          <h1>
+            Освойте IT профессию<br>
+            <span class="hero-gradient-text">онлайн с нуля</span>
+          </h1>
+          <p class="hero-desc">
+            Практические курсы от топовых специалистов отрасли. Реальные проекты, поддержка преподавателей и сертификаты, которые ценят работодатели.
+          </p>
+          <div class="hero-btns">
+            <a href="pages/catalog.html" class="btn btn-primary btn-lg">🚀 Начать обучение</a>
+            <a href="pages/pricing.html" class="btn btn-outline btn-lg">Смотреть тарифы</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><span class="hero-stat-num">150+</span><span class="hero-stat-label">Курсов</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">50К+</span><span class="hero-stat-label">Студентов</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">6</span><span class="hero-stat-label">Преподавателей</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">4.8★</span><span class="hero-stat-label">Рейтинг</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="search-section">
+      <div class="container">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" id="heroSearch" placeholder="Найдите курс по названию, теме или навыку...">
+          <button class="btn btn-primary search-btn" id="heroSearchBtn">Найти</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">📚 Категории</span>
+          <h2 class="section-title">Выберите своё <span class="accent">направление</span></h2>
+          <p class="section-subtitle">6 профессиональных направлений с актуальными курсами</p>
+        </div>
+        <div class="categories-grid" id="homeCategoriesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary)">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">⭐ Популярное</span>
+          <h2 class="section-title">Лучшие <span class="accent">курсы</span></h2>
+          <p class="section-subtitle">Самые востребованные курсы, которые помогут построить карьеру в IT</p>
+        </div>
+        <div class="courses-grid" id="featuredCoursesGrid"></div>
+        <div class="text-center mt-5">
+          <a href="pages/catalog.html" class="btn btn-outline btn-lg">Все курсы →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item"><div class="stat-num">150+</div><div class="stat-label">Курсов на платформе</div></div>
+          <div class="stat-item"><div class="stat-num">50 000+</div><div class="stat-label">Студентов обучаются</div></div>
+          <div class="stat-item"><div class="stat-num">95%</div><div class="stat-label">Находят работу</div></div>
+          <div class="stat-item"><div class="stat-num">4.8 / 5</div><div class="stat-label">Средний рейтинг</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">👨‍🏫 Преподаватели</span>
+          <h2 class="section-title">Учитесь у <span class="accent">лучших</span></h2>
+          <p class="section-subtitle">Наши преподаватели — практикующие специалисты из топовых IT компаний</p>
+        </div>
+        <div class="teachers-grid" id="homeTeachersGrid"></div>
+        <div class="text-center mt-5">
+          <a href="pages/teachers.html" class="btn btn-outline btn-lg">Все преподаватели →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary)">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">💬 Отзывы</span>
+          <h2 class="section-title">Что говорят <span class="accent">студенты</span></h2>
+          <p class="section-subtitle">Реальные истории успеха наших выпускников</p>
+        </div>
+        <div class="testimonials-grid" id="testimonialsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--radius-xl); padding: 64px 48px; text-align: center; color: #fff; position: relative; overflow: hidden;">
+          <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900; margin-bottom: 16px;">Готовы начать обучение?</h2>
+          <p style="opacity: 0.85; font-size: 1.1rem; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto;">Присоединяйтесь к 50 000+ студентов и начните строить карьеру в IT уже сегодня</p>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href="pages/register.html" class="btn btn-lg" style="background: #fff; color: var(--primary);">Зарегистрироваться бесплатно</a>
+            <a href="pages/catalog.html" class="btn btn-lg btn-outline" style="border-color: rgba(255,255,255,0.4); color: #fff;">Смотреть курсы</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      const catGrid = document.getElementById("homeCategoriesGrid");
+      if (catGrid) {
+        catGrid.innerHTML = CATEGORIES.map(cat => `
+          <a href="pages/catalog.html?category=${cat.id}" class="category-card" style="border-color: ${cat.color}30;">
+            <div class="category-icon">${cat.icon}</div>
+            <div class="category-name">${cat.name}</div>
+            <div class="category-count">${cat.count} курсов</div>
+          </a>
+        `).join("");
+      }
+
+      const featuredGrid = document.getElementById("featuredCoursesGrid");
+      if (featuredGrid) {
+        const featured = COURSES.filter(c => c.featured);
+        featuredGrid.innerHTML = featured.map(c => renderCourseCard(c)).join("");
+        initCartButtons();
+      }
+
+      const teachersGrid = document.getElementById("homeTeachersGrid");
+      if (teachersGrid) {
+        teachersGrid.innerHTML = TEACHERS.slice(0, 3).map(t => `
+          <div class="teacher-card">
+            <div class="teacher-avatar">${t.avatar}</div>
+            <div class="teacher-name">${t.name}</div>
+            <div class="teacher-title">${t.title}</div>
+            <div class="teacher-company">@ ${t.company}</div>
+            <div class="teacher-stats">
+              <div class="teacher-stat"><span class="teacher-stat-num">${t.students.toLocaleString("ru-RU")}</span><span class="teacher-stat-label">Студентов</span></div>
+              <div class="teacher-stat"><span class="teacher-stat-num">${t.courses}</span><span class="teacher-stat-label">Курсов</span></div>
+              <div class="teacher-stat"><span class="teacher-stat-num">${t.rating}</span><span class="teacher-stat-label">Рейтинг</span></div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const tmGrid = document.getElementById("testimonialsGrid");
+      if (tmGrid) {
+        tmGrid.innerHTML = TESTIMONIALS.map(t => `
+          <div class="testimonial-card">
+            <div class="testimonial-stars">${"★".repeat(t.rating)}</div>
+            <p class="testimonial-text">"${t.text}"</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">${t.avatar}</div>
+              <div>
+                <div class="testimonial-name">${t.name}</div>
+                <div class="testimonial-role">${t.role}</div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      const heroSearch = document.getElementById("heroSearch");
+      const heroSearchBtn = document.getElementById("heroSearchBtn");
+      if (heroSearch && heroSearchBtn) {
+        const doSearch = () => {
+          const q = heroSearch.value.trim();
+          if (q) window.location.href = `pages/catalog.html?q=${encodeURIComponent(q)}`;
+        };
+        heroSearchBtn.addEventListener("click", doSearch);
+        heroSearch.addEventListener("keypress", e => { if (e.key === "Enter") doSearch(); });
+      }
+    }
+  </script>
+</body>
+</html>

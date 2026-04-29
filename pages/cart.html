@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Корзина — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>Корзина</div>
+        <h1>Корзина</h1>
+        <p id="cartSubtitle">Ваши выбранные курсы</p>
+      </div>
+    </div>
+    <section class="section-sm">
+      <div class="container">
+        <div id="cartContent"></div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartIds = Storage.cart.getCart();
+      const container = document.getElementById("cartContent");
+      const subtitle = document.getElementById("cartSubtitle");
+
+      if (cartIds.length === 0) {
+        subtitle.textContent = "Корзина пуста";
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🛒</div>
+            <h3>Корзина пуста</h3>
+            <p>Добавьте курсы из каталога, чтобы начать обучение</p>
+            <a href="catalog.html" class="btn btn-primary btn-lg">Перейти в каталог</a>
+          </div>
+        `;
+        return;
+      }
+
+      const courses = cartIds.map(id => COURSES.find(c => c.id === id)).filter(Boolean);
+      const total = Storage.cart.getTotal();
+      const oldTotal = courses.reduce((s, c) => s + (c.oldPrice || c.price), 0);
+      const savings = oldTotal - total;
+      subtitle.textContent = `${courses.length} ${courses.length === 1 ? "курс" : "курса"} в корзине`;
+
+      container.innerHTML = `
+        <div class="cart-layout">
+          <div>
+            <div id="cartItems">
+              ${courses.map(course => `
+                <div class="cart-item" data-id="${course.id}">
+                  <div class="cart-item-icon" style="background: linear-gradient(135deg, ${course.color}20, ${course.color}40)">${course.icon}</div>
+                  <div class="cart-item-info">
+                    <div class="cart-item-title"><a href="course.html?id=${course.id}">${course.title}</a></div>
+                    <div class="cart-item-instructor">${course.instructor} • ${course.duration} • ${course.level}</div>
+                    <div style="margin-top:6px;">${renderStars(course.rating)} <span style="font-size:0.8rem; color:var(--text-muted);">(${course.students.toLocaleString("ru-RU")})</span></div>
+                  </div>
+                  <div class="cart-item-price">${formatPrice(course.price)}</div>
+                  <button class="cart-remove" data-id="${course.id}" title="Удалить">✕</button>
+                </div>
+              `).join("")}
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+              <button class="btn btn-danger" id="clearCartBtn">🗑 Очистить корзину</button>
+              <a href="catalog.html" class="btn btn-outline">← Продолжить выбор</a>
+            </div>
+          </div>
+          <div class="cart-summary">
+            <h3>Итого к оплате</h3>
+            ${savings > 0 ? `<div class="summary-savings">🎉 Вы экономите ${formatPrice(savings)}!</div>` : ""}
+            <div class="summary-row"><span>Курсов:</span><span>${courses.length}</span></div>
+            ${savings > 0 ? `<div class="summary-row"><span>Стоимость без скидки:</span><span>${formatPrice(oldTotal)}</span></div>
+            <div class="summary-row" style="color:var(--success);"><span>Скидка:</span><span>- ${formatPrice(savings)}</span></div>` : ""}
+            <div class="summary-row total"><span>Итого:</span><span style="color:var(--primary);">${formatPrice(total)}</span></div>
+            <button class="btn btn-primary w-100 btn-lg mt-3" id="checkoutBtn">💳 Перейти к оплате</button>
+            <div style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:12px;">30-дневная гарантия возврата</div>
+            <hr class="divider">
+            <div class="feature-list">
+              <div class="feature-item"><span class="feature-item-icon">✅</span>Пожизненный доступ</div>
+              <div class="feature-item"><span class="feature-item-icon">✅</span>Сертификат об окончании</div>
+              <div class="feature-item"><span class="feature-item-icon">✅</span>Поддержка преподавателя</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll(".cart-remove").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = parseInt(btn.dataset.id);
+          Storage.cart.removeFromCart(id);
+          showToast("Курс удалён из корзины", "info");
+          updateCartBadge();
+          renderCart();
+        });
+      });
+
+      document.getElementById("clearCartBtn")?.addEventListener("click", () => {
+        Storage.cart.clearCart();
+        showToast("Корзина очищена", "info");
+        updateCartBadge();
+        renderCart();
+      });
+
+      document.getElementById("checkoutBtn")?.addEventListener("click", () => {
+        if (!Storage.auth.isLoggedIn()) {
+          showToast("Войдите в аккаунт для оплаты", "warning");
+          setTimeout(() => window.location.href = "login.html", 1200);
+        } else {
+          const user = Storage.auth.getCurrentUser();
+          const myCourses = [...(user.courses || []), ...Storage.cart.getCart()];
+          const uniqueCourses = [...new Set(myCourses)];
+          Storage.auth.updateUser({ courses: uniqueCourses });
+          Storage.cart.clearCart();
+          showToast("🎉 Оплата прошла успешно! Курсы добавлены в профиль", "success");
+          updateCartBadge();
+          setTimeout(() => renderCart(), 500);
+        }
+      });
+    }
+  </script>
+</body>
+</html>

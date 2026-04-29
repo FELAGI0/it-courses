@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Преподаватели — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb"><a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>Преподаватели</div>
+        <h1>Наши преподаватели</h1>
+        <p>Практикующие специалисты из ведущих IT компаний России</p>
+      </div>
+    </div>
+    <section class="section">
+      <div class="container">
+        <div class="teachers-grid" id="teachersGrid"></div>
+      </div>
+    </section>
+    <section class="section" style="background:var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">🤝 Стань преподавателем</span>
+          <h2 class="section-title">Делитесь знаниями</h2>
+          <p class="section-subtitle">Создавайте курсы и зарабатывайте, обучая других специалистов</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; max-width:900px; margin:0 auto 40px;">
+          <div class="value-card"><div class="value-icon">💰</div><div class="value-title">Доход</div><div class="value-text">Зарабатывайте с каждого студента, купившего ваш курс</div></div>
+          <div class="value-card"><div class="value-icon">🌍</div><div class="value-title">Аудитория</div><div class="value-text">Доступ к 50 000+ студентов на платформе</div></div>
+          <div class="value-card"><div class="value-icon">🛠</div><div class="value-title">Инструменты</div><div class="value-text">Полная поддержка в создании и продвижении курса</div></div>
+        </div>
+        <div style="text-align:center;"><a href="contact.html" class="btn btn-primary btn-lg">Стать преподавателем →</a></div>
+      </div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      const grid = document.getElementById("teachersGrid");
+      grid.innerHTML = TEACHERS.map(t => `
+        <div class="teacher-card">
+          <div class="teacher-avatar">${t.avatar}</div>
+          <div class="teacher-name">${t.name}</div>
+          <div class="teacher-title">${t.title}</div>
+          <div class="teacher-company">@ ${t.company}</div>
+          <div class="teacher-bio">${t.bio}</div>
+          <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:16px;">
+            <span style="color:var(--warning);">★</span>
+            <span style="font-weight:700;">${t.rating}</span>
+            <span style="color:var(--text-muted);">•</span>
+            <span style="color:var(--text-muted); font-size:0.85rem;">${t.experience} опыта</span>
+          </div>
+          <div class="skills-tags">${t.skills.map(s => `<span class="skill-tag">${s}</span>`).join("")}</div>
+          <div class="teacher-stats">
+            <div class="teacher-stat"><span class="teacher-stat-num">${t.students.toLocaleString("ru-RU")}</span><span class="teacher-stat-label">Студентов</span></div>
+            <div class="teacher-stat"><span class="teacher-stat-num">${t.courses}</span><span class="teacher-stat-label">Курсов</span></div>
+            <div class="teacher-stat"><span class="teacher-stat-num">${t.rating}</span><span class="teacher-stat-label">Рейтинг</span></div>
+          </div>
+          <a href="catalog.html" class="btn btn-outline w-100 mt-3" style="margin-top:16px;">Смотреть курсы</a>
+        </div>
+      `).join("");
+    }
+  </script>
+</body>
+</html>

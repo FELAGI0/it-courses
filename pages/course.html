@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курс — ITКурсы</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app-header"></div>
+  <main>
+    <div id="courseContent"></div>
+  </main>
+  <div id="app-footer"></div>
+  <div id="toast-container"></div>
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function pageInit() {
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get("id"));
+      const course = COURSES.find(c => c.id === id);
+      const container = document.getElementById("courseContent");
+
+      if (!course) {
+        container.innerHTML = `<div class="container section"><div class="empty-state"><div class="empty-state-icon">😕</div><h3>Курс не найден</h3><p>Курс с таким ID не существует</p><a href="catalog.html" class="btn btn-primary">К каталогу</a></div></div>`;
+        return;
+      }
+
+      document.title = `${course.title} — ITКурсы`;
+      const teacher = TEACHERS.find(t => t.id === course.instructorId);
+      const inCart = Storage.cart.isInCart(course.id);
+      const savings = course.oldPrice ? course.oldPrice - course.price : 0;
+      const savingsPct = course.oldPrice ? Math.round((savings / course.oldPrice) * 100) : 0;
+
+      container.innerHTML = `
+        <div class="page-hero" style="background: linear-gradient(135deg, ${course.color}15, ${course.color}05)">
+          <div class="container">
+            <div class="breadcrumb">
+              <a href="../index.html">Главная</a><span class="breadcrumb-sep">›</span>
+              <a href="catalog.html">Каталог</a><span class="breadcrumb-sep">›</span>
+              ${course.categoryName}<span class="breadcrumb-sep">›</span>${course.title}
+            </div>
+            <div style="display:flex; justify-content:space-between; gap:32px; flex-wrap:wrap;">
+              <div style="max-width:680px; flex:1;">
+                <span class="section-badge">${course.categoryName}</span>
+                <h1 style="font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900; margin:12px 0;">${course.title}</h1>
+                <p style="font-size:1.05rem; color:var(--text-muted); margin-bottom:20px;">${course.fullDescription}</p>
+                <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+                  ${renderStars(course.rating)}
+                  <span style="color:var(--text-muted); font-size:0.88rem;">(${course.students.toLocaleString("ru-RU")} студентов)</span>
+                  <span class="badge badge-primary">${course.level}</span>
+                </div>
+                <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:0.88rem; color:var(--text-muted);">
+                  <span>👨‍🏫 ${course.instructor}</span>
+                  <span>📖 ${course.lessons} уроков</span>
+                  <span>⏱ ${course.duration}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="section-sm">
+          <div class="container">
+            <div class="course-layout">
+              <div class="course-main">
+                <div class="info-card">
+                  <h3>Чему вы научитесь</h3>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div class="feature-item"><span class="feature-item-icon">✅</span> Понимать основные концепции ${course.tags[0]}</div>
+                    <div class="feature-item"><span class="feature-item-icon">✅</span> Создавать реальные проекты</div>
+                    <div class="feature-item"><span class="feature-item-icon">✅</span> Работать с ${course.tags[1] || course.tags[0]}</div>
+                    <div class="feature-item"><span class="feature-item-icon">✅</span> Применять лучшие практики</div>
+                    <div class="feature-item"><span class="feature-item-icon">✅</span> Проходить технические собеседования</div>
+                    <div class="feature-item"><span class="feature-item-icon">✅</span> Строить карьеру в IT</div>
+                  </div>
+                </div>
+
+                <div class="info-card">
+                  <h3>Программа курса</h3>
+                  <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:20px;">${course.curriculum.length} разделов • ${course.lessons} уроков • ${course.duration}</p>
+                  ${course.curriculum.map((section, idx) => `
+                    <div class="curriculum-section">
+                      <div class="curriculum-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                        <span>📂 ${section.section}</span>
+                        <span style="font-size:0.85rem; color:var(--text-muted);">${section.lessons.length} урока ▼</span>
+                      </div>
+                      <div class="curriculum-lessons" ${idx > 0 ? 'style="display:none"' : ''}>
+                        ${section.lessons.map((lesson, li) => `
+                          <div class="curriculum-lesson">
+                            <span>▶️</span>
+                            <span style="flex:1;">${lesson}</span>
+                            ${li === 0 ? '<span style="color:var(--success); font-size:0.78rem; font-weight:600;">Бесплатно</span>' : ''}
+                          </div>
+                        `).join("")}
+                      </div>
+                    </div>
+                  `).join("")}
+                </div>
+
+                ${teacher ? `
+                <div class="info-card">
+                  <h3>Ваш преподаватель</h3>
+                  <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+                    <div style="width:72px; height:72px; border-radius:50%; font-size:2.2rem; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, var(--primary)20, var(--secondary)20); flex-shrink:0;">${teacher.avatar}</div>
+                    <div style="flex:1;">
+                      <div style="font-size:1.1rem; font-weight:700; margin-bottom:4px;">${teacher.name}</div>
+                      <div style="color:var(--primary); font-size:0.88rem; margin-bottom:8px;">${teacher.title} @ ${teacher.company}</div>
+                      <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.6;">${teacher.bio}</p>
+                    </div>
+                  </div>
+                </div>
+                ` : ""}
+
+                <div class="info-card">
+                  <h3>Требования</h3>
+                  <div class="feature-list">
+                    <div class="feature-item"><span class="feature-item-icon">📌</span> Базовое владение компьютером</div>
+                    <div class="feature-item"><span class="feature-item-icon">📌</span> Уровень: ${course.level}</div>
+                    <div class="feature-item"><span class="feature-item-icon">📌</span> Желание учиться и практиковаться</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="course-sidebar">
+                <div class="course-preview-card">
+                  <div class="course-preview-img" style="background: linear-gradient(135deg, ${course.color}25, ${course.color}45)">
+                    ${course.icon}
+                  </div>
+                  <div class="course-preview-body">
+                    <div class="course-price-big">${formatPrice(course.price)}</div>
+                    ${course.oldPrice ? `<div class="course-old-price">${formatPrice(course.oldPrice)} <span class="badge badge-danger">-${savingsPct}%</span></div>` : ""}
+                    <button class="btn btn-primary w-100 btn-lg mb-2" id="courseCartBtn" data-id="${course.id}">
+                      ${inCart ? "✓ Уже в корзине" : "🛒 В корзину"}
+                    </button>
+                    ${inCart ? `<a href="cart.html" class="btn btn-outline w-100">Перейти в корзину</a>` : ""}
+                    ${savings > 0 ? `<div class="summary-savings mt-2">Вы экономите ${formatPrice(savings)}</div>` : ""}
+                    <div class="course-includes">
+                      <div class="course-include-item"><span>📖</span>${course.lessons} уроков</div>
+                      <div class="course-include-item"><span>⏱</span>${course.duration} материалов</div>
+                      <div class="course-include-item"><span>📱</span>Доступ с любого устройства</div>
+                      <div class="course-include-item"><span>♾️</span>Пожизненный доступ</div>
+                      <div class="course-include-item"><span>🏆</span>Сертификат об окончании</div>
+                    </div>
+                    <div style="text-align:center; font-size:0.82rem; color:var(--text-muted);">30-дневная гарантия возврата</div>
+                  </div>
+                </div>
+
+                <div class="info-card mt-3">
+                  <h3>Теги</h3>
+                  <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    ${course.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      document.getElementById("courseCartBtn")?.addEventListener("click", function() {
+        const cid = parseInt(this.dataset.id);
+        const result = Storage.cart.addToCart(cid);
+        if (result.success) {
+          this.textContent = "✓ Уже в корзине";
+          this.classList.remove("btn-primary");
+          this.classList.add("btn-success");
+          showToast(result.message, "success");
+          updateCartBadge();
+        } else {
+          showToast(result.message, "warning");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
