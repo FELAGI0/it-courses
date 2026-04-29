@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="light">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -118,7 +118,7 @@
         let courses = [...COURSES];
         if (currentCat !== "all") courses = courses.filter(c => c.category === currentCat);
         if (searchQuery) {
-            courses = trigramSearch(searchQuery, courses);
+          courses = trigramSearch(searchQuery, courses);
         }
         if (currentSort === "price-asc") courses.sort((a, b) => a.price - b.price);
         else if (currentSort === "price-desc") courses.sort((a, b) => b.price - a.price);
